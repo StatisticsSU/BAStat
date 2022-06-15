@@ -1,2 +1,2 @@
-# BasicStat
+# BAStat
 Some functions for undergraduate students
