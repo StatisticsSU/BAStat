@@ -89,4 +89,3 @@ lines(xp1,yp1, lwd=4,  col = "red")
 }
 
 
-t.pvalues(tCrit = qt(0.975,28),tObs= 3.0866537,deg.freed=28,side="R")
