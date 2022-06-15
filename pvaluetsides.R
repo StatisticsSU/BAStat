@@ -1,9 +1,5 @@
 
 ###############p-values
-rm(list=ls())
-while (dev.cur()>1) dev.off()
-if(!is.null(dev.list())) dev.off()
-
 
 
 t.pvalues<-function(tCrit, tObs,deg.freed,side){
