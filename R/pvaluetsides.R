@@ -5,8 +5,8 @@
 #' @return squared input
 #' @export
 #' @examples
-#' library(myprettypackage)
-#' myquadratic(4)
+#' library(BAStat)
+#' t.pvalues
 
 
 t.pvalues<-function(tCrit, tObs,deg.freed,side){
