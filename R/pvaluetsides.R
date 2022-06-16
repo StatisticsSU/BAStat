@@ -1,5 +1,14 @@
+#' t.pvalues Computes p-values and take decisions under a t-distribution
+#'
+#' This is some other important info about the use of the function.
+#' @param x the input
+#' @return squared input
+#' @export
+#' @examples
+#' library(myprettypackage)
+#' myquadratic(4)
 
-###############p-values
+
 t.pvalues<-function(tCrit, tObs,deg.freed,side){
   tGrid= seq(-10,10,by = 0.01)
   tCrit1= -tCrit
