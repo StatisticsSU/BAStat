@@ -1,4 +1,4 @@
-#' t.pvalues Computes p-values and take decisions under a t-distribution
+#' Compute p-values and take decisions under a t-distribution
 #'
 #' This is some other important info about the use of the function.
 #' @param x the input
