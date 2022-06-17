@@ -5,7 +5,7 @@
 #' @param deg.freed it is the number of degree of freedom
 #' @param side `B` if it is the alternative hypothesis on both sides.
 #' @return plot with the critical region under the t-Student hypothesis and the p-value
-#' @export
+#' @export 
 #' @examples
 #' library(BAStat)
 #' t.pvalues(tCrit=qt(0.95,6), tObs=2,deg.freed=6,side="B")
