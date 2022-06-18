@@ -35,6 +35,7 @@ histog<-function(x,x_lab="",title_x="",palette_x="light blue",box=FALSE){
   legend("bottomright", c("Histogram", "Normal", "Density"), xpd=TRUE, inset=c(0,1), cex=0.7,bty="n",
          pch=20, col = c("black", "red", "blue"))
   if(box==TRUE){
+par(mar=c(1,1,1,1))
     layout(matrix(1:2, nrow = 2))
     hist(x, prob = TRUE, col = palette_x, xlab=x_lab,main=title_x,
          ylim = c(0, max(p_hist$density, fun)))
