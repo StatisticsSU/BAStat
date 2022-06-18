@@ -4,7 +4,14 @@
 \alias{histog}
 \title{Histogram for one variable}
 \usage{
-histog(x, x_lab = "", title_x = "", palette_x = "light blue", box = FALSE)
+histog(
+  x,
+  x_lab = "",
+  title_x = "",
+  palette_x = "light blue",
+  breaks_x = ceiling(log2(length(x)) + 1),
+  box = FALSE
+)
 }
 \arguments{
 \item{x}{quantitative variable (continous or discrete)}

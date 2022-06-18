@@ -3,6 +3,7 @@
 #' @param x quantitative variable (continous or discrete)
 #' @param x_lab specify the name of the variable on x-axis
 #' @param palette_x define the color of your histogram or by default is "light blue"
+#' @param breaks_x define the number of bins; by default there is the suggested number of bins from hist function
 #' @param box if it is true it can produce a boxplot as well
 #' As a result the histogram is with the Normal density curve and the kernel density from the observations 
 #' @export 
@@ -16,7 +17,7 @@
 
 
 
-histog<-function(x,x_lab="",title_x="",palette_x="light blue",box=FALSE){
+histog<-function(x,x_lab="",title_x="",palette_x="light blue",breaks_x=ceiling(log2(length(x)) + 1),box=FALSE){
   
   
   x2 <- seq(min(x), max(x), length = length(x))
@@ -27,7 +28,7 @@ histog<-function(x,x_lab="",title_x="",palette_x="light blue",box=FALSE){
   # Histogram
   
   p_hist = hist(x, plot = F)
-  hist(x, prob = TRUE, col = palette_x,xlab=x_lab,main=title_x,
+  hist(x, prob = TRUE, col = palette_x,xlab=x_lab,main=title_x,breaks=breaks_x,
        ylim = c(0, max(p_hist$density, fun)))
   
   lines(x2, fun, col = "red", lwd = 2)# Density
@@ -37,7 +38,7 @@ histog<-function(x,x_lab="",title_x="",palette_x="light blue",box=FALSE){
   if(box==TRUE){
 par(mar=c(1,1,1,1))
     layout(matrix(1:2, nrow = 2))
-    hist(x, prob = TRUE, col = palette_x, xlab=x_lab,main=title_x,
+    hist(x, prob = TRUE, col = palette_x, xlab=x_lab,main=title_x,breaks=breaks_x,
          ylim = c(0, max(p_hist$density, fun)))
     
     lines(x2, fun, col = "red", lwd = 2)# Density
