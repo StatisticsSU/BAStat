@@ -2,3 +2,4 @@
 
 S3method(t,pvalues)
 export(describe)
+export(histog)
