@@ -10,12 +10,12 @@
 #' @export
 #' @examples
 #' library(BAStat)
-#' #P(-4<Z<4)
-#' area(lower.x=-4, upper.x=4, mu=0, sigma=1,col="light blue",titles="Area")
-#' #P(Z<2)
-#' area(upper.x=2)
-#' #P(Z>3)
-#' area(lower.x=3)
+#' #P(-1<Z<1)
+#' area(lower.x=-1, upper.x=1, mu=0, sigma=1,col="light blue",titles="Area")
+#' #P(Z<1)
+#' area(upper.x=1)
+#' #P(Z>1)
+#' area(lower.x = 1)
 #' #P(X>1) and X is a Normal distribution with mean equal to 3 and variance equal to 2
 #' area(lower.x=1,mu=3,sigma=sqrt(2))
 
