@@ -20,6 +20,8 @@ histog(
 
 \item{palette_x}{define the color of your histogram or by default is "light blue"}
 
+\item{breaks_x}{define the number of bins; by default there is the suggested number of bins from hist function}
+
 \item{box}{if it is true it can produce a boxplot as well
 As a result the histogram is with the Normal density curve and the kernel density from the observations}
 }
