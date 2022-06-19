@@ -25,22 +25,22 @@ area(
 
 \item{col}{it is the color of the area under the curve,  by default it is light blue: it can be changed}
 
+\item{density}{draw the kernel density function from the data}
+
 \item{titles}{it the title on the top of the plot}
 }
 \value{
-the area under the standardized Normal distibution
+the area under the standardized Normal distribution
 }
 \description{
 Draw the area under the Normal density curve
 }
 \examples{
 library(BAStat)
-#P(-4<Z<4)
-area(lower.x=-4, upper.x=4, mu=0, sigma=1,col="light blue",titles="Area")
-#P(Z<2)
-area(upper.x=2)
-#P(Z>3)
-area(lower.x=3)
-#P(X>1) and X is a Normal distribution with mean equal to 3 and variance equal to 2
-area(lower.x=1,mu=3,sigma=sqrt(2))
+#P(-1<Z<1)
+area(lower.x=-1, upper.x=1, mu=0, sigma=1,col="light blue",titles="Area")
+#P(Z<1)
+area(upper.x=1)
+#P(Z>1)
+area(lower.x = 1)
 }

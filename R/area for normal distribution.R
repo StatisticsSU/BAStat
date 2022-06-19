@@ -6,7 +6,8 @@
 #' @param sigma the standarddeviation of the Normal; by default it is equal to 1
 #' @param col it is the color of the area under the curve,  by default it is light blue: it can be changed
 #' @param titles it the title on the top of the plot
-#' @return the area under the standardized Normal distibution
+#' @param density draw the kernel density function from the data
+#' @return the area under the standardized Normal distribution
 #' @export
 #' @examples
 #' library(BAStat)
@@ -16,8 +17,7 @@
 #' area(upper.x=1)
 #' #P(Z>1)
 #' area(lower.x = 1)
-#' #P(X>1) and X is a Normal distribution with mean equal to 3 and variance equal to 2
-#' area(lower.x=1,mu=3,sigma=sqrt(2))
+
 
 area <- function(lower.x=-4, upper.x=4, mu=0, sigma=1,col="light blue",density=NULL,titles="Area"){
   step <- (upper.x - lower.x) / 100
