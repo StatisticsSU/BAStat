@@ -2,7 +2,7 @@
 % Please edit documentation in R/area for normal distribution.R
 \name{area}
 \alias{area}
-\title{Draw the area under the Normal density curve}
+\title{Draw the area under a standardized Normal density curve}
 \usage{
 area(
   lower.x = -4,
@@ -15,9 +15,9 @@ area(
 )
 }
 \arguments{
-\item{lower.x}{the lower bound for a Normal distribution, by default it is equal to -4}
+\item{lower.x}{the lower bound for a standardized Normal distribution, by default it is equal to -4}
 
-\item{upper.x}{the upper bound for a Normal distribution, by default it is equal to 4}
+\item{upper.x}{the upper bound for a standardized Normal distribution, by default it is equal to 4}
 
 \item{mu}{the population mean, by default is equal to zero}
 
@@ -33,7 +33,7 @@ area(
 the area under the standardized Normal distribution
 }
 \description{
-Draw the area under the Normal density curve
+Draw the area under a standardized Normal density curve
 }
 \examples{
 library(BAStat)

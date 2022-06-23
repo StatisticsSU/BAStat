@@ -1,7 +1,7 @@
-#' Draw the area under the Normal density curve
+#' Draw the area under a standardized Normal density curve
 #'
-#' @param lower.x the lower bound for a Normal distribution, by default it is equal to -4
-#' @param upper.x the upper bound for a Normal distribution, by default it is equal to 4
+#' @param lower.x the lower bound for a standardized Normal distribution, by default it is equal to -4
+#' @param upper.x the upper bound for a standardized Normal distribution, by default it is equal to 4
 #' @param mu the population mean, by default is equal to zero
 #' @param sigma the standarddeviation of the Normal; by default it is equal to 1
 #' @param col it is the color of the area under the curve,  by default it is light blue: it can be changed
