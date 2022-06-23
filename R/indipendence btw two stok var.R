@@ -12,6 +12,7 @@
 #' pxy<-matrix(
 #'  c(0.1,0.2,0.1,0.2,0.3,0.1),
 #'  nrow=2,ncol=3) 
+#'  indip(xx=x,yy=y,pxxyy=pxy)
 
 
 
