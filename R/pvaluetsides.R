@@ -2,54 +2,74 @@
 #'
 #' @param tCrit critical value
 #' @param tObs observed value already studentised
-#' @param deg.freed it is the number of degree of freedom
+#' @param degree.freed it is the number of degree of freedom
 #' @param side `B` if it is the alternative hypothesis on both sides.
 #' @return plot with the critical region under the t-Student hypothesis and the p-value
 #' @export 
 #' @examples
 #' library(BAStat)
-#' t.pvalues(tCrit=qt(0.95,6), tObs=2,deg.freed=6,side="B")
+#' tCrit =qt(0.95,18)
+#' tCrit =qt(0.975,18)
+#' tCrit =qt(0.025,18)
+#' pt(3.0866537,18)
+#' qt(0.003181154,18)
 
 
-t.pvalues<-function(tCrit, tObs,deg.freed,side){
+#' t.pvalues(tCrit = 1.734064,tObs= 3.0866537,degree.freed=18,alternative="greater")
+#' t.pvalues(tCrit = -1.734064,tObs= -3.0866537,degree.freed=18,alternative="less")
+
+#' t.pvalues(tCrit = -2.100922,tObs= -3.0866537,degree.freed=18,alternative="two.sided")
+#' t.pvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided")
+
+t.pvalues<-function(tCrit, tObs,degree.freed,alternative){
+  
   tGrid= seq(-10,10,by = 0.01)
-  tCrit1= -tCrit
-  plot(tGrid, (dt(tGrid,df=deg.freed-1)), type = "l", xlab = "X", ylab = "density",lwd=1)
-  legend(x = "topleft", inset=.05, legend = c("alpha", "P-value"), pch = c(19,19),
-         cex = c(1,1), pt.lwd = c(NA,NA), col = c("light blue","red"), bty="n")
-  
-  tPlot = function(x,df){dt(x,df=deg.freed-1)}  
   
   
-  if(side=="L"){
+  plot(tGrid, (dt(tGrid,df=degree.freed)), type = "l", xlab = "X", ylab = "t-Student density",lwd=1)
+  
+  tPlot = function(x,df=degree.freed){dt(x,df=degree.freed)}  
+  
+  
+  if(alternative=="less"){
     
+    legend(x = "topleft", inset=.05, legend = c(c("alpha:", round(pt(tCrit,degree.freed),4),"P-value:",round(pt(tObs,degree.freed),4))), pch = c(19,19),
+           cex = c(1,1), pt.lwd = c(NA,NA), col = c("light blue","light blue","red","red"), bty="n")
     
-    x1 = seq(from = min(tGrid), to = tCrit1, length.out = 1000) 
-    y1 = tPlot(x1,df)
-    x1 = c(tCrit1,min(tGrid), x1, tCrit1) 
+    x1 = seq(from = min(tGrid), to = tCrit, length.out = 1000) 
+    y1 = tPlot(x1,df=degree.freed)
+    x1 = c(tCrit,min(tGrid), x1, tCrit) 
     
     y1 = c(y1,0, 0, 0)
     polygon(x1,y1, lty = 3, border = NULL, col = "Light blue")
     
     
-    xp1 = seq(from = min(tGrid), to = -tObs, length.out = 1000) 
-    yp1 = tPlot(xp1,df)
-    xp1 = c(-tObs,min(tGrid), xp1, -tObs) 
+    xp1 = seq(from = min(tGrid), to = tObs, length.out = 1000) 
+    yp1 = tPlot(xp1,df=degree.freed)
+    xp1 = c(tObs,min(tGrid), xp1, tObs) 
     
     yp1 = c(yp1,0, 0, 0)
     lines(xp1,yp1, lwd=4,  col = "red")
+    
+    
     if(max(yp1)<=max(y1)){
       mtext(~italic("Reject null hypothesis"), side=3)
     }
+    
     if(max(yp1)>max(y1)){
       mtext(~italic("No Reject null hypothesis"), side=3)
     }
     
   }
-  if(side=="R"){
+  
+  
+  if(alternative=="greater"){
+    legend(x = "topleft", inset=.05, legend = c(c("alpha:", round(1-pt(tCrit,degree.freed),4),"P-value:",round(1-pt(tObs,degree.freed),4))), pch = c(19,19),
+           cex = c(1,1), pt.lwd = c(NA,NA), col = c("light blue","light blue","red","red"), bty="n")
+    
     
     x = seq(from = tCrit, to = max(tGrid), length.out = 1000) 
-    y = tPlot(x,df)
+    y = tPlot(x,df=degree.freed)
     
     x = c(tCrit, x, max(tGrid), tCrit) 
     y = c(0, y, 0, 0)
@@ -57,10 +77,12 @@ t.pvalues<-function(tCrit, tObs,deg.freed,side){
     polygon(x,y, lty = 3, border = NULL, col = "Light blue")
     
     xp = seq(from = tObs, to = max(tGrid), length.out = 1000) 
-    yp = tPlot(xp,df)
+    yp = tPlot(xp,df=degree.freed)
     xp = c(tObs, xp, 10, tObs) 
     yp = c(0, yp, 0, 0)
     lines(xp,yp, lwd=4,  col = "red")
+    
+    
     if(max(yp)<=max(y)){
       mtext(~italic("Reject null hypothesis"), side=3)
     }
@@ -68,60 +90,76 @@ t.pvalues<-function(tCrit, tObs,deg.freed,side){
       mtext(~italic("No Reject null hypothesis"), side=3)
     }
     
+    
+    
   }
-  if(side=="B"){
+  
+  if(alternative=="two.sided"){
     
     
-    legend(x = "topleft", inset=.05, legend = c("alpha/2", "P-values/2"), pch = c(19,19),
-           cex = c(1,1), pt.lwd = c(NA,NA), col = c("light blue","red"), bty="n")
-    
-    tPlot = function(x,df){dt(x,df=deg.freed-1)} 
+    legend(x = "topleft", inset=.05, legend = c(c("alpha/2:", round(1-pt(tCrit,degree.freed),4),"P-value/2:",round(1-pt(tObs,degree.freed),4))), pch = c(19,19),
+           cex = c(1,1), pt.lwd = c(NA,NA), col = c("light blue","light blue","red","red"), bty="n")
     
     x = seq(from = tCrit, to = max(tGrid), length.out = 1000) 
-    y = tPlot(x,df)
+    y = tPlot(x,df=degree.freed)
     
     x = c(tCrit, x, max(tGrid), tCrit) 
     y = c(0, y, 0, 0)
     
     polygon(x,y, lty = 3, border = NULL, col = "Light blue")
     
-    x1 = seq(from = min(tGrid), to = tCrit1, length.out = 1000) 
-    y1 = tPlot(x1,deg.freed)
-    x1 = c(tCrit1,min(tGrid), x1, tCrit1) 
-    
-    y1 = c(y1,0, 0, 0)
-    polygon(x1,y1, lty = 3, border = NULL, col = "Light blue")
-    
-    #################
-    
     xp = seq(from = tObs, to = max(tGrid), length.out = 1000) 
-    yp = tPlot(xp,df)
+    yp = tPlot(xp,df=degree.freed)
     xp = c(tObs, xp, 10, tObs) 
     yp = c(0, yp, 0, 0)
     lines(xp,yp, lwd=4,  col = "red")
     
-    xp1 = seq(from = min(tGrid), to = -tObs, length.out = 1000) 
-    yp1 = tPlot(xp1,df)
+    
+    legend(x = "topleft", inset=.05, legend = c(c("alpha/2:", round(pt(-tCrit,degree.freed),4),"P-value/2:",round(pt(-tObs,degree.freed),4))), pch = c(19,19),
+           cex = c(1,1), pt.lwd = c(NA,NA), col = c("light blue","light blue","red","red"), bty="n")
+    if(max(yp)<=max(y)){
+      mtext(~italic("Reject null hypothesis"), side=3)
+    }
+    
+    #if(1-pt(tObs,degree.freed) >= 1-pt(tCrit,degree.freed))
+    if(max(yp)>max(y)){
+      mtext(~italic("No Reject null hypothesis"), side=3)
+    }
+    
+    #################
+    
+    
+    
+    xp1 = seq(from = min(tGrid), to = - tObs, length.out = 1000) 
+    yp1 = tPlot(xp1,df=degree.freed)
     xp1 = c(-tObs,min(tGrid), xp1, -tObs) 
     
     yp1 = c(yp1,0, 0, 0)
     lines(xp1,yp1, lwd=4,  col = "red")
     
+    x1 = seq(from = min(tGrid), to = -tCrit, length.out = 1000) 
+    y1 = tPlot(x1,df=degree.freed)
+    x1 = c(-tCrit,min(tGrid), x1, -tCrit) 
+    
+    y1 = c(y1,0, 0, 0)
+    polygon(x1,y1, lty = 3, border = NULL, col = "Light blue")
+    
+    
+    
+    if(max(yp1)<=max(y1)){
+      mtext(~italic("Reject null hypothesis"), side=3)
+    }
+    if(max(yp1)>max(y1)){
+      mtext(~italic("No Reject null hypothesis"), side=3)
+    }
+    
+    # if(pt(tObs,degree.freed)>=pt(tCrit,degree.freed))
+    
+    
   }
-  
-  if(max(yp)<=max(y)){
-    mtext(~italic("Reject null hypothesis"), side=3)
-  }
-  if(max(yp)>max(y)){
-    mtext(~italic("No Reject null hypothesis"), side=3)
-  }
-  
-  if(max(yp1)<=max(y1)){
-    mtext(~italic("Reject null hypothesis"), side=3)
-  }
-  if(max(yp1)>max(y1)){
-    mtext(~italic("No Reject null hypothesis"), side=3)
-  }
-  
-  
 }
+
+
+
+
+

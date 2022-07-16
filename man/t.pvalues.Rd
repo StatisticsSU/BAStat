@@ -4,14 +4,14 @@
 \alias{t.pvalues}
 \title{Compute p-values and take decisions under a t-distribution}
 \usage{
-\method{t}{pvalues}(tCrit, tObs, deg.freed, side)
+\method{t}{pvalues}(tCrit, tObs, degree.freed, alternative)
 }
 \arguments{
 \item{tCrit}{critical value}
 
 \item{tObs}{observed value already studentised}
 
-\item{deg.freed}{it is the number of degree of freedom}
+\item{degree.freed}{it is the number of degree of freedom}
 
 \item{side}{\code{B} if it is the alternative hypothesis on both sides.}
 }
@@ -23,5 +23,13 @@ Compute p-values and take decisions under a t-distribution
 }
 \examples{
 library(BAStat)
-t.pvalues(tCrit=qt(0.95,6), tObs=2,deg.freed=6,side="B")
+tCrit =qt(0.95,18)
+tCrit =qt(0.975,18)
+tCrit =qt(0.025,18)
+pt(3.0866537,18)
+qt(0.003181154,18)
+t.pvalues(tCrit = 1.734064,tObs= 3.0866537,degree.freed=18,alternative="greater")
+t.pvalues(tCrit = -1.734064,tObs= -3.0866537,degree.freed=18,alternative="less")
+t.pvalues(tCrit = -2.100922,tObs= -3.0866537,degree.freed=18,alternative="two.sided")
+t.pvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided")
 }
