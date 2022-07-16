@@ -13,7 +13,7 @@
 
 \item{degree.freed}{it is the number of degree of freedom}
 
-\item{side}{\code{B} if it is the alternative hypothesis on both sides.}
+\item{alternative}{\code{two.sided} if the alternative hypothesis is on both sides; \code{greater} if the alternative hypothesis is on the right side; \code{less} if the alternative hypothesis is on the left side}
 }
 \value{
 plot with the critical region under the t-Student hypothesis and the p-value

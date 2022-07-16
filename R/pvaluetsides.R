@@ -3,7 +3,7 @@
 #' @param tCrit critical value
 #' @param tObs observed value already studentised
 #' @param degree.freed it is the number of degree of freedom
-#' @param side `B` if it is the alternative hypothesis on both sides.
+#' @param alternative `two.sided` if the alternative hypothesis is on both sides; `greater` if the alternative hypothesis is on the right side; `less` if the alternative hypothesis is on the left side
 #' @return plot with the critical region under the t-Student hypothesis and the p-value
 #' @export 
 #' @examples
