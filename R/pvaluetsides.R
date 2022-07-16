@@ -21,7 +21,7 @@
 #' t.pvalues(tCrit = -2.100922,tObs= -3.0866537,degree.freed=18,alternative="two.sided")
 #' t.pvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided")
 
-t.pvalues <- function(tCrit, tObs,degree.freed,alternative){
+ t.pvalues <- function(tCrit, tObs, degree.freed, alternative){
   
   tGrid= seq(-10,10,by = 0.01)
   
