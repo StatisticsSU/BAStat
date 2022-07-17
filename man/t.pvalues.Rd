@@ -16,20 +16,19 @@
 \item{alternative}{\code{two.sided} if the alternative hypothesis is on both sides; \code{greater} if the alternative hypothesis is on the right side; \code{less} if the alternative hypothesis is on the left side}
 }
 \value{
-plot with the critical region under the t-Student hypothesis and the p-value
+plot with the comparison between the theoretical area for the critical region and the obtained p-value. On the top of the plot is reported the answer: if it has to be rejected of not the null hypothesis. On the left side of the plot is reported the computed p-value and the computed area for the theoretical t-value.
 }
 \description{
-Compute p-values and take decisions under a t-distribution
+This function helps in the learning process for when the null hypothesis can be rejected based on the p-value. It is implemented for one and two tailed tests. It is for the test of hypothesis for the mean of one or two population as well as support for the estimated parameters of a regression model.
 }
 \examples{
 library(BAStat)
 tCrit =qt(0.95,18)
-tCrit =qt(0.975,18)
-tCrit =qt(0.025,18)
-pt(3.0866537,18)
-qt(0.003181154,18)
 t.pvalues(tCrit = 1.734064,tObs= 3.0866537,degree.freed=18,alternative="greater")
+tCrit =qt(0.05,18)
 t.pvalues(tCrit = -1.734064,tObs= -3.0866537,degree.freed=18,alternative="less")
+tCrit =qt(0.025,18)
 t.pvalues(tCrit = -2.100922,tObs= -3.0866537,degree.freed=18,alternative="two.sided")
+tCrit =qt(0.975,18)
 t.pvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided")
 }
