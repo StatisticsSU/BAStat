@@ -10,15 +10,15 @@
 #' @examples
 #' library(BAStat)
 #' tCrit =qt(0.95,18)
-#' t.pvalues(tCrit = 1.734064,tObs= 3.0866537,degree.freed=18,alternative="greater")
+#' tPvalues(tCrit = 1.734064,tObs= 3.0866537,degree.freed=18,alternative="greater")
 #' tCrit =qt(0.05,18)
-#' t.pvalues(tCrit = -1.734064,tObs= -3.0866537,degree.freed=18,alternative="less")
+#' tPvalues(tCrit = -1.734064,tObs= -3.0866537,degree.freed=18,alternative="less")
 #' tCrit =qt(0.025,18)
-#' t.pvalues(tCrit = -2.100922,tObs= -3.0866537,degree.freed=18,alternative="two.sided")
+#' tPvalues(tCrit = -2.100922,tObs= -3.0866537,degree.freed=18,alternative="two.sided")
 #' tCrit =qt(0.975,18)
-#' t.pvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided")
+#' tPvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided")
 
-t.pvalues <- function(tCrit, tObs, degree.freed, alternative){
+tPvalues <- function(tCrit, tObs, degree.freed, alternative){
   
   tGrid= seq(-10,10,by = 0.01)
   
