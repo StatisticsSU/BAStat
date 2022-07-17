@@ -19,7 +19,7 @@
 plot with the comparison between the theoretical area for the critical region and the obtained p-value. On the top of the plot is reported the answer: if it has to be rejected of not the null hypothesis. On the left side of the plot is reported the computed p-value and the computed area for the theoretical t-value.
 }
 \description{
-This function helps in the learning process for when the null hypothesis can be rejected based on the p-value. It is implemented for one and two tailed tests. It is for the test of hypothesis for the mean of one or two population as well as support for the estimated parameters of a regression model.
+This function helps in the learning process: when the null hypothesis can be rejected based on the p-value. It is implemented for one and two tailed t-tests. It is for the test of hypothesis for the mean of one or two populations as well as a support for the estimated parameters of a regression model.
 }
 \examples{
 library(BAStat)

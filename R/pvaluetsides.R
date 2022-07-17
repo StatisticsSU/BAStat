@@ -1,6 +1,6 @@
 #' Compute p-values and take decisions under a t-distribution
 #' 
-#' This function helps in the learning process for when the null hypothesis can be rejected based on the p-value. It is implemented for one and two tailed tests. It is for the test of hypothesis for the mean of one or two population as well as support for the estimated parameters of a regression model.
+#' This function helps in the learning process: when the null hypothesis can be rejected based on the p-value. It is implemented for one and two tailed t-tests. It is for the test of hypothesis for the mean of one or two populations as well as a support for the estimated parameters of a regression model.
 #' @param tCrit critical value
 #' @param tObs observed value already studentised
 #' @param degree.freed it is the number of degree of freedom
@@ -18,7 +18,7 @@
 #' tCrit =qt(0.975,18)
 #' t.pvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided")
 
-t.pvalues<-function(tCrit, tObs, degree.freed, alternative){
+t.pvalues <- function(tCrit, tObs, degree.freed, alternative){
   
   tGrid= seq(-10,10,by = 0.01)
   
