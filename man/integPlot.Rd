@@ -18,6 +18,7 @@ On R Studio's Console: the numerical result of the integral and on the plots are
 }
 \description{
 The goal of this function is to compute defined integral and to show the corresponding area.
+Note that this function can be adapted also for indefinite integrals (integrals between -Inf and Inf) but a tolerance equal to 1e-06 is introduced.
 }
 \examples{
 
@@ -30,4 +31,9 @@ integPlot(fx=integrand,lower = 0,upper = 1)
 
 integrand <- function(x) {1/sqrt(2*pi)*exp(-x^2/2)} #this is the Normal distribution
 integPlot(fx=integrand,lower = -1.96,upper = 1.96)
+
+integPlot(fx=function(x)1/4 * x^2,lower = 0,upper = 2)
+integPlot(fx=function(x)1/4 * x^2,lower = -Inf,upper = Inf)# indefinite integral
+integPlot(fx=function(x)1/4 * x^2,lower = -Inf,upper = 2) # improper integral: one of the bounds is infinity
+integPlot(fx=function(x)1/4 * x^2,lower = 0,upper = Inf)# improper integral 
 }
