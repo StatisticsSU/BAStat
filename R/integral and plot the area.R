@@ -4,7 +4,7 @@
 #' @param fx the integrand, the mathematical function to be integrated.
 #' @param lower the numerical lower bound of the integral.
 #' @param upper the numerical upper bound of the integral. 
-#' @return on the console the numerical result of the integral and the plot of the region representing the computed area.
+#' @return On R Studio's Console: the numerical result of the integral and on the plots area the plot of the region representing the computed area.
 #' @export 
 #' @examples
 #' 

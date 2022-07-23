@@ -14,7 +14,7 @@ integPlot(fx, lower, upper)
 \item{upper}{the numerical upper bound of the integral.}
 }
 \value{
-on the console the numerical result of the integral and the plot of the region representing the computed area.
+On R Studio's Console: the numerical result of the integral and on the plots area the plot of the region representing the computed area.
 }
 \description{
 The goal of this function is to compute defined integral and to show the corresponding area.
