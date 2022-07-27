@@ -4,7 +4,7 @@
 \alias{tPvalues}
 \title{Compute p-values and take decisions under a t-distribution}
 \usage{
-tPvalues(tCrit, tObs, degree.freed, alternative)
+tPvalues(tCrit, tObs, degree.freed, alternative, method)
 }
 \arguments{
 \item{tCrit}{critical value}
@@ -13,7 +13,9 @@ tPvalues(tCrit, tObs, degree.freed, alternative)
 
 \item{degree.freed}{it is the number of degree of freedom}
 
-\item{alternative}{\code{two.sided} if the alternative hypothesis is on both sides; \code{greater} if the alternative hypothesis is on the right side; \code{less} if the alternative hypothesis is on the left side}
+\item{alternative}{\code{two.sided} if the alternative hypothesis is on both sides; \code{greater} if the alternative hypothesis is on the right side; \code{less} if the alternative hypothesis is on the left side.}
+
+\item{method}{\code{areas} in this case the comparison and the decision is based on the areas and the result of the p-values is also presented. If method is equal to \code{values} than the decision is based on the values of the t-distribution and the values from the observations.}
 }
 \value{
 plot with the comparison between the theoretical area for the critical region and the obtained p-value. On the top of the plot is reported the answer: if it has to be rejected of not the null hypothesis. On the left side of the plot is reported the computed p-value and the computed area for the theoretical t-value.
@@ -23,12 +25,19 @@ This function helps in the learning process: when the null hypothesis can be rej
 }
 \examples{
 library(BAStat)
+
 tCrit =qt(0.95,18)
-tPvalues(tCrit = 1.734064,tObs= 3.0866537,degree.freed=18,alternative="greater")
+tPvalues(tCrit = 1.734064,tObs= 3.0866537,degree.freed=18,alternative="greater",method="areas")
+tPvalues(tCrit = 1.734064,tObs= 3.0866537,degree.freed=18,alternative="greater",method="values")
+
 tCrit =qt(0.05,18)
-tPvalues(tCrit = -1.734064,tObs= -3.0866537,degree.freed=18,alternative="less")
+tPvalues(tCrit = -1.734064,tObs= -3.0866537,degree.freed=18,alternative="less",method="areas")
+tPvalues(tCrit = -1.734064,tObs= -3.0866537,degree.freed=18,alternative="less",method="values")
+
 tCrit =qt(0.025,18)
-tPvalues(tCrit = -2.100922,tObs= -3.0866537,degree.freed=18,alternative="two.sided")
+tPvalues(tCrit = -2.100922,tObs= -3.0866537,degree.freed=18,alternative="two.sided",method="areas")
+tPvalues(tCrit = -2.100922,tObs= -3.0866537,degree.freed=18,alternative="two.sided",method="values")
 tCrit =qt(0.975,18)
-tPvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided")
+tPvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided",method="areas")
+tPvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided",method="values")
 }

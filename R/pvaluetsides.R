@@ -4,21 +4,30 @@
 #' @param tCrit critical value
 #' @param tObs observed value already studentised
 #' @param degree.freed it is the number of degree of freedom
-#' @param alternative `two.sided` if the alternative hypothesis is on both sides; `greater` if the alternative hypothesis is on the right side; `less` if the alternative hypothesis is on the left side
+#' @param alternative `two.sided` if the alternative hypothesis is on both sides; `greater` if the alternative hypothesis is on the right side; `less` if the alternative hypothesis is on the left side.
+#' @param method `areas` in this case the comparison and the decision is based on the areas and the result of the p-values is also presented. If method is equal to `values` than the decision is based on the values of the t-distribution and the values from the observations.
 #' @return plot with the comparison between the theoretical area for the critical region and the obtained p-value. On the top of the plot is reported the answer: if it has to be rejected of not the null hypothesis. On the left side of the plot is reported the computed p-value and the computed area for the theoretical t-value.
 #' @export 
 #' @examples
 #' library(BAStat)
+#' 
 #' tCrit =qt(0.95,18)
-#' tPvalues(tCrit = 1.734064,tObs= 3.0866537,degree.freed=18,alternative="greater")
+#' tPvalues(tCrit = 1.734064,tObs= 3.0866537,degree.freed=18,alternative="greater",method="areas")
+#' tPvalues(tCrit = 1.734064,tObs= 3.0866537,degree.freed=18,alternative="greater",method="values")
+#'
 #' tCrit =qt(0.05,18)
-#' tPvalues(tCrit = -1.734064,tObs= -3.0866537,degree.freed=18,alternative="less")
+#' tPvalues(tCrit = -1.734064,tObs= -3.0866537,degree.freed=18,alternative="less",method="areas")
+#' tPvalues(tCrit = -1.734064,tObs= -3.0866537,degree.freed=18,alternative="less",method="values")
+#'
 #' tCrit =qt(0.025,18)
-#' tPvalues(tCrit = -2.100922,tObs= -3.0866537,degree.freed=18,alternative="two.sided")
+#' tPvalues(tCrit = -2.100922,tObs= -3.0866537,degree.freed=18,alternative="two.sided",method="areas")
+#' tPvalues(tCrit = -2.100922,tObs= -3.0866537,degree.freed=18,alternative="two.sided",method="values")
 #' tCrit =qt(0.975,18)
-#' tPvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided")
+#' tPvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided",method="areas")
+#' tPvalues(tCrit = 2.100922,tObs= 3.0866537,degree.freed=18,alternative="two.sided",method="values")
 
-tPvalues <- function(tCrit, tObs, degree.freed, alternative){
+
+tPvalues<-function(tCrit, tObs,degree.freed,alternative,method){
   
   tGrid= seq(-10,10,by = 0.01)
   
@@ -28,7 +37,7 @@ tPvalues <- function(tCrit, tObs, degree.freed, alternative){
   tPlot = function(x,df=degree.freed){dt(x,df=degree.freed)}  
   
   
-  if(alternative=="less"){
+  if((alternative=="less") & (method=="areas")){
     
     legend(x = "topleft", inset=.05, legend = c(c("alpha:", round(pt(tCrit,degree.freed),4),"P-value:",round(pt(tObs,degree.freed),4))), pch = c(19,19),
            cex = c(1,1), pt.lwd = c(NA,NA), col = c("light blue","light blue","red","red"), bty="n")
@@ -59,8 +68,28 @@ tPvalues <- function(tCrit, tObs, degree.freed, alternative){
     
   }
   
+  if((alternative=="less")&(method=="values")){
+    
+    
+    points(tCrit,0, col = "blue", pch = 19)
+    points(tObs,0, col = "red", pch = 19)
+    legend(x = "topleft", inset=.05, legend = c("tCrit", "tObs"), pch = c(19,19),
+           cex = c(1,1), pt.lwd = c(NA,NA), col = c("blue","red"), bty="n")
+    
+    
+    if(tObs<=tCrit){
+      mtext(~italic("Reject null hypothesis"), side=3)
+    }
+    
+    if(tObs>tCrit){
+      mtext(~italic("No Reject null hypothesis"), side=3)
+    }
+    
+  }
   
-  if(alternative=="greater"){
+  
+  
+  if((alternative=="greater") & (method=="areas")){
     legend(x = "topleft", inset=.05, legend = c(c("alpha:", round(1-pt(tCrit,degree.freed),4),"P-value:",round(1-pt(tObs,degree.freed),4))), pch = c(19,19),
            cex = c(1,1), pt.lwd = c(NA,NA), col = c("light blue","light blue","red","red"), bty="n")
     
@@ -87,11 +116,30 @@ tPvalues <- function(tCrit, tObs, degree.freed, alternative){
       mtext(~italic("No Reject null hypothesis"), side=3)
     }
     
+  }
+  
+  if((alternative=="greater")&(method=="values")){
     
+    
+    points(tCrit,0, col = "blue", pch = 19)
+    points(tObs,0, col = "red", pch = 19)
+    legend(x = "topleft", inset=.05, legend = c("tCrit", "tObs"), pch = c(19,19),
+           cex = c(1,1), pt.lwd = c(NA,NA), col = c("blue","red"), bty="n")
+    
+    
+    if(tObs>=tCrit){
+      mtext(~italic("Reject null hypothesis"), side=3)
+    }
+    
+    if(tObs<tCrit){
+      mtext(~italic("No Reject null hypothesis"), side=3)
+    }
     
   }
   
-  if(alternative=="two.sided"){
+  
+  
+  if((alternative=="two.sided")&(method=="areas")){
     
     
     tCrits<-abs(tCrit)
@@ -127,6 +175,8 @@ tPvalues <- function(tCrit, tObs, degree.freed, alternative){
       mtext(~italic("No Reject null hypothesis"), side=3)
     }
     
+    #################
+    
     
     xp1 = seq(from = min(tGrid), to = -tObsa, length.out = 1000) 
     yp1 = tPlot(xp1,df=degree.freed)
@@ -143,7 +193,6 @@ tPvalues <- function(tCrit, tObs, degree.freed, alternative){
     polygon(x1,y1, lty = 3, border = NULL, col = "Light blue")
     
     
-    
     if(max(yp1)<=max(y1)){
       mtext(~italic("Reject null hypothesis"), side=3)
     }
@@ -151,6 +200,28 @@ tPvalues <- function(tCrit, tObs, degree.freed, alternative){
       mtext(~italic("No Reject null hypothesis"), side=3)
     }
     
+    # if(pt(tObs,degree.freed)>=pt(tCrit,degree.freed))
+  }
+  
+  if((alternative=="two.sided")&(method=="values")){
+    tCrits<-abs(tCrit)
+    tObsa<-abs(tObs)
+    
+    points(tCrit,0, col = "blue", pch = 19)
+    points(tObs,0, col = "red", pch = 19)
+    legend(x = "topleft", inset=.05, legend = c("tCrit", "tObs"), pch = c(19,19),
+           cex = c(1,1), pt.lwd = c(NA,NA), col = c("blue","red"), bty="n")
+    
+    
+    if(tObsa>=tCrits){
+      mtext(~italic("Reject null hypothesis"), side=3)
+    }
+    
+    if(tObsa<tCrits){
+      mtext(~italic("No Reject null hypothesis"), side=3)
+    }
     
   }
+  
+
 }
