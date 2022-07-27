@@ -2,6 +2,7 @@
 
 export(Exy)
 export(area)
+export(cdfContinous)
 export(describe)
 export(histog)
 export(indip)
