@@ -41,6 +41,6 @@ integPlot<-function(fx,lower,upper){
   polygon(x3,
           y3,density = 15, angle = 45,
           col = "darkgreen")
-  return(integrate(fx,lower,upper))
+  return(integrate(Vectorize(fx),lower,upper))
 }
 
