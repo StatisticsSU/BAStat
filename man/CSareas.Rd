@@ -37,23 +37,23 @@ Draw the area under the standardized Normal density curve or the t-Student's cur
 library(BAStat)
 
 CSareas(upper.x=1,side="left")#P(z<1)
-CSareas(upper.x=1,side="left",cdf=T)#P(z<1)
+CSareas(upper.x=1,side="left",cdf=TRUE)#P(z<1)
 CSareas(upper.x=-1,side="left")#p(z<-1)
-CSareas(upper.x=-1,side="left",cdf=T)#p(z<-1)
+CSareas(upper.x=-1,side="left",cdf=TRUE)#p(z<-1)
 
 CSareas(upper.x=-1,side="between")#wrong!
 CSareas(upper.x=-1,side="right")#wrong!
 
 CSareas(lower.x=-1,side="right")#P(z>-1)
-CSareas(lower.x=-1,side="right",cdf=T)#F(-1)
+CSareas(lower.x=-1,side="right",cdf=TRUE)#F(-1)
 CSareas(lower.x=1,side="right")#P(z>1)
-CSareas(lower.x=1,side="right",cdf=T)#F(1)
+CSareas(lower.x=1,side="right",cdf=TRUE)#F(1)
 CSareas(lower.x=1,upper.x=2,side="between")#P(1<Z<2)
-CSareas(lower.x=1,upper.x=2,side="between",cdf=T)#F(2)-F(1)
+CSareas(lower.x=1,upper.x=2,side="between",cdf=TRUE)#F(2)-F(1)
 CSareas(lower.x=-1,upper.x=2,side="between")#P(-1<Z<2)
-CSareas(lower.x=-1,upper.x=2,side="between",cdf=T)#F(2)-F(-1)
+CSareas(lower.x=-1,upper.x=2,side="between",cdf=TRUE)#F(2)-F(-1)
 CSareas(lower.x=-2,upper.x=-1,side="between")#P(-2<Z<-1)
-CSareas(lower.x=-2,upper.x=-1,side="between")#F(-2)-F(-1)
+CSareas(lower.x=-2,upper.x=-1,side="between",cdf=TRUE)#F(-2)-F(-1)
 
 CSareas(lower.x=2,upper.x=-1,side="between")#wrong!
 CSareas(lower.x=-1,upper.x=-2,side="between")#wrong!
