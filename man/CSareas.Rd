@@ -5,7 +5,14 @@
 \alias{CSareas}
 \title{Draw the area under the standardized Normal density curve or the t-Student's curve. Both those functions are continous and symmetric, this is why the function is called "CS"}
 \usage{
-CSareas(cs = "Standard Normal", lower.x = NULL, upper.x = NULL, side, deg.fred)
+CSareas(
+  cs = "Standard Normal",
+  lower.x = NULL,
+  upper.x = NULL,
+  side,
+  deg.fred,
+  cdf = FALSE
+)
 }
 \arguments{
 \item{cs}{by default is intended to draw the Standardized Normal distribution, otherwise specify \emph{cs="t"} and it will for the t distribution}
@@ -17,9 +24,11 @@ CSareas(cs = "Standard Normal", lower.x = NULL, upper.x = NULL, side, deg.fred)
 \item{side}{it can be \code{left}, if the area is on the left side of the area; \code{right} if the area is on the right; \code{between} if the area is between two values}
 
 \item{deg.fred}{is the degree of freedom and it would be required if it is the t-Student (cs="t")}
+
+\item{cdf}{if it is true standard normal distribution is drawn with CDF}
 }
 \value{
-the area under the standardized Normal distribution
+the area under the standardized Normal distribution or the CDF for the normal or the area for the t-Student
 }
 \description{
 Draw the area under the standardized Normal density curve or the t-Student's curve. Both those functions are continous and symmetric, this is why the function is called "CS"
@@ -28,16 +37,24 @@ Draw the area under the standardized Normal density curve or the t-Student's cur
 library(BAStat)
 
 CSareas(upper.x=1,side="left")#P(z<1)
+CSareas(upper.x=1,side="left",cdf=T)#P(z<1)
 CSareas(upper.x=-1,side="left")#p(z<-1)
+CSareas(upper.x=-1,side="left",cdf=T)#p(z<-1)
 
 CSareas(upper.x=-1,side="between")#wrong!
 CSareas(upper.x=-1,side="right")#wrong!
 
 CSareas(lower.x=-1,side="right")#P(z>-1)
+CSareas(lower.x=-1,side="right",cdf=T)#F(-1)
 CSareas(lower.x=1,side="right")#P(z>1)
-CSareas(lower.x=1,upper.x=2,side="between")
-CSareas(lower.x=-1,upper.x=2,side="between")
-CSareas(lower.x=-2,upper.x=-1,side="between")
+CSareas(lower.x=1,side="right",cdf=T)#F(1)
+CSareas(lower.x=1,upper.x=2,side="between")#P(1<Z<2)
+CSareas(lower.x=1,upper.x=2,side="between",cdf=T)#F(2)-F(1)
+CSareas(lower.x=-1,upper.x=2,side="between")#P(-1<Z<2)
+CSareas(lower.x=-1,upper.x=2,side="between",cdf=T)#F(2)-F(-1)
+CSareas(lower.x=-2,upper.x=-1,side="between")#P(-2<Z<-1)
+CSareas(lower.x=-2,upper.x=-1,side="between")#F(-2)-F(-1)
+
 CSareas(lower.x=2,upper.x=-1,side="between")#wrong!
 CSareas(lower.x=-1,upper.x=-2,side="between")#wrong!
 CSareas(cs="t",upper.x=2.49,deg.fred = 23,side="left")#P(t<2.49)

@@ -5,24 +5,32 @@
 #' @param upper.x the upper bound of the symmetric and continuous distribution;
 #' @param side it can be `left`, if the area is on the left side of the area; `right` if the area is on the right; `between` if the area is between two values
 #' @param deg.fred is the degree of freedom and it would be required if it is the t-Student (cs="t")
-#' @return the area under the standardized Normal distribution
+#' @param cdf if it is true standard normal distribution is drawn with CDF
+#' @return the area under the standardized Normal distribution or the CDF for the normal or the area for the t-Student
 #' @export
 #' @examples
 #' library(BAStat)
 #' 
 #' CSareas(upper.x=1,side="left")#P(z<1)
+#' CSareas(upper.x=1,side="left",cdf=T)#P(z<1)
 #' CSareas(upper.x=-1,side="left")#p(z<-1)
+#' CSareas(upper.x=-1,side="left",cdf=T)#p(z<-1)
 #'
 #' CSareas(upper.x=-1,side="between")#wrong!
 #' CSareas(upper.x=-1,side="right")#wrong!
 #'
 #' CSareas(lower.x=-1,side="right")#P(z>-1)
+#' CSareas(lower.x=-1,side="right",cdf=T)#F(-1)
 #' CSareas(lower.x=1,side="right")#P(z>1)
+#' CSareas(lower.x=1,side="right",cdf=T)#F(1)
 
-#' CSareas(lower.x=1,upper.x=2,side="between")
-#' CSareas(lower.x=-1,upper.x=2,side="between")
-#' CSareas(lower.x=-2,upper.x=-1,side="between")
-
+#' CSareas(lower.x=1,upper.x=2,side="between")#P(1<Z<2)
+#' CSareas(lower.x=1,upper.x=2,side="between",cdf=T)#F(2)-F(1)
+#' CSareas(lower.x=-1,upper.x=2,side="between")#P(-1<Z<2)
+#' CSareas(lower.x=-1,upper.x=2,side="between",cdf=T)#F(2)-F(-1)
+#' CSareas(lower.x=-2,upper.x=-1,side="between")#P(-2<Z<-1)
+#' CSareas(lower.x=-2,upper.x=-1,side="between")#F(-2)-F(-1)
+#' 
 #' CSareas(lower.x=2,upper.x=-1,side="between")#wrong!
 #' CSareas(lower.x=-1,upper.x=-2,side="between")#wrong!
 
@@ -50,11 +58,10 @@
 
 
 
-CSareas<-function(cs="Standard Normal",lower.x=NULL, upper.x=NULL, side,deg.fred){
+CSareas<-function(cs="Standard Normal",lower.x=NULL, upper.x=NULL, side,deg.fred, cdf=FALSE){
   
   if(cs=="Standard Normal"){
     Grid= seq(-4,4,by = 0.01)
-    
     plot(Grid, dnorm(Grid), type = "l", xlab = "z", ylab = "Standardized Normal density",lwd=1,xaxt="n")
     axis(1,seq(-4,4,by=1))
     normPlot = function(x){dnorm(x)}  
@@ -166,11 +173,8 @@ CSareas<-function(cs="Standard Normal",lower.x=NULL, upper.x=NULL, side,deg.fred
       }
       
       
-      
       if((lower.x<0) & (upper.x<0)&(lower.x<upper.x)){
-        
         mtext(paste("area:", round((pnorm(upper.x)-pnorm(lower.x)),4)), side = 3)
-        
         x = seq(from = min(Grid), to = upper.x, length.out = 1000) 
         y = normPlot(x)
         
@@ -188,8 +192,212 @@ CSareas<-function(cs="Standard Normal",lower.x=NULL, upper.x=NULL, side,deg.fred
         
       }
       
-      
     }
+    
+    if(cdf==TRUE){
+      
+      x<-seq(from=-4,to=4,by=0.05)
+      cumulative<-pnorm(x)
+      plot(x, cumulative, col="darkorange", xlab="z",xaxt="n",
+           ylab="Cumulative Probability",type="l",lwd=2, cex=2,
+           main="Standard Normal CDF", cex.axis=.8)
+      
+      if(side=="right"){
+        
+        if((lower.x>-4)&(lower.x<0)){
+          upper.x<-4
+          mtext(paste("area:", round(1-pnorm(lower.x),4)), side = 3)
+          
+          p <- c(upper.x, pnorm(upper.x))#pnorm(1, mean = 0 , sd=1)
+          segments(x0 = upper.x, y0 = lower.x, x1 = upper.x, y1 = pnorm(upper.x), col = "darkgreen",lty=2) 
+          segments(x0 = upper.x, y0 = pnorm(upper.x), x1 = -4, y1 = pnorm(upper.x), 
+                   col = "darkgreen",lty=2) 
+          points(t(p), col="blue", pch=16)
+          
+          text(t(p), paste(round(pnorm(upper.x),4)), adj=-0.2)
+          
+          p2 <- c(lower.x, pnorm(lower.x))#pnorm(1, mean = 0 , sd=1)
+          points(t(p2), col="blue", pch=16)
+          text(t(p2), paste(round(pnorm(lower.x),4)), adj=-0.2)
+          
+          segments(x0 = lower.x, y0 = lower.x, x1 = lower.x, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          segments(x0 = lower.x, y0 = pnorm(lower.x), x1 = -4, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          axis(1,at=c(-4,-3,-2,-1,0,1,2,3,4))
+          x1<-ifelse(x<=upper.x&x>=lower.x,x,NA)
+          cum1<-ifelse(cumulative<=pnorm(upper.x)&cumulative>=pnorm(lower.x),cumulative,NA)
+          p1<-cbind(x1,cum1)
+          points(p1, col="blue", pch=16)
+        }
+      }
+      
+      if(side=="right"){
+        upper.x<-4
+        if((lower.x>-4)&(lower.x>=0)){
+          
+          mtext(paste("area:", round(1-pnorm(lower.x),4)), side = 3)
+          
+          p <- c(upper.x, pnorm(upper.x))#pnorm(1, mean = 0 , sd=1)
+          segments(x0 = upper.x, y0 = lower.x, x1 = upper.x, y1 = pnorm(upper.x), col = "darkgreen",lty=2) 
+          segments(x0 = upper.x, y0 = pnorm(upper.x), x1 = -4, y1 = pnorm(upper.x), 
+                   col = "darkgreen",lty=2) 
+          points(t(p), col="blue", pch=16)
+          
+          text(t(p), paste(round(pnorm(upper.x),4)), adj=-0.2)
+          
+          p2 <- c(lower.x, pnorm(lower.x))#pnorm(1, mean = 0 , sd=1)
+          points(t(p2), col="blue", pch=16)
+          text(t(p2), paste(round(pnorm(lower.x),4)), adj=-0.2)
+          
+          segments(x0 = lower.x, y0 = lower.x, x1 = lower.x, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          segments(x0 = lower.x, y0 = pnorm(lower.x), x1 = -4, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          axis(1,at=c(-4,-3,-2,-1,0,1,2,3,4))
+          x1<-ifelse(x<=upper.x&x>=lower.x,x,NA)
+          cum1<-ifelse(cumulative<=pnorm(upper.x)&cumulative>=pnorm(lower.x),cumulative,NA)
+          p1<-cbind(x1,cum1)
+          points(p1, col="blue", pch=16)
+        }
+      }
+      
+      if(side=="left"){
+        
+        if((upper.x<4)&(upper.x<0)){
+          lower.x<--4
+          mtext(paste("area:", round(pnorm(upper.x),4)), side = 3)
+          
+          p <- c(upper.x, pnorm(upper.x))#pnorm(1, mean = 0 , sd=1)
+          segments(x0 = upper.x, y0 = lower.x, x1 = upper.x, y1 = pnorm(upper.x), col = "darkgreen",lty=2) 
+          segments(x0 = upper.x, y0 = pnorm(upper.x), x1 = -4, y1 = pnorm(upper.x), 
+                   col = "darkgreen",lty=2) 
+          points(t(p), col="blue", pch=16)
+          
+          text(t(p), paste(round(pnorm(upper.x),4)), adj=-0.2)
+          
+          p2 <- c(lower.x, pnorm(lower.x))#pnorm(1, mean = 0 , sd=1)
+          points(t(p2), col="blue", pch=16)
+          text(t(p2), paste(round(pnorm(lower.x),4)), adj=-0.2)
+          
+          segments(x0 = lower.x, y0 = lower.x, x1 = lower.x, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          segments(x0 = lower.x, y0 = pnorm(lower.x), x1 = -4, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          axis(1,at=c(-4,-3,-2,-1,0,1,2,3,4))
+          x1<-ifelse(x<=upper.x&x>=lower.x,x,NA)
+          cum1<-ifelse(cumulative<=pnorm(upper.x)&cumulative>=pnorm(lower.x),cumulative,NA)
+          p1<-cbind(x1,cum1)
+          points(p1, col="blue", pch=16)
+          
+        }
+      }
+      
+      if(side=="left"){
+        if((upper.x<4)&(upper.x>=0)){
+          lower.x<--4
+          mtext(paste("area:", round((pnorm(upper.x)-pnorm(lower.x)),4)), side = 3)
+          
+          p <- c(upper.x, pnorm(upper.x))#pnorm(1, mean = 0 , sd=1)
+          segments(x0 = upper.x, y0 = lower.x, x1 = upper.x, y1 = pnorm(upper.x), col = "darkgreen",lty=2) 
+          segments(x0 = upper.x, y0 = pnorm(upper.x), x1 = -4, y1 = pnorm(upper.x), 
+                   col = "darkgreen",lty=2) 
+          points(t(p), col="blue", pch=16)
+          
+          text(t(p), paste(round(pnorm(upper.x),4)), adj=-0.2)
+          
+          p2 <- c(lower.x, pnorm(lower.x))#pnorm(1, mean = 0 , sd=1)
+          points(t(p2), col="blue", pch=16)
+          text(t(p2), paste(round(pnorm(lower.x),4)), adj=-0.2)
+          
+          segments(x0 = lower.x, y0 = lower.x, x1 = lower.x, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          segments(x0 = lower.x, y0 = pnorm(lower.x), x1 = -4, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          axis(1,at=c(-4,-3,-2,-1,0,1,2,3,4))
+          x1<-ifelse(x<=upper.x&x>=lower.x,x,NA)
+          cum1<-ifelse(cumulative<=pnorm(upper.x)&cumulative>=pnorm(lower.x),cumulative,NA)
+          p1<-cbind(x1,cum1)
+          points(p1, col="blue", pch=16)
+          
+        }
+      }
+      
+      if(side=="between"){
+        if((lower.x>=0) & (upper.x>=0)){
+          
+          mtext(paste("area:", round((pnorm(upper.x)-pnorm(lower.x)),4)), side = 3)
+          
+          p <- c(upper.x, pnorm(upper.x))#pnorm(1, mean = 0 , sd=1)
+          segments(x0 = upper.x, y0 = lower.x, x1 = upper.x, y1 = pnorm(upper.x), col = "darkgreen",lty=2) 
+          segments(x0 = upper.x, y0 = pnorm(upper.x), x1 = -4, y1 = pnorm(upper.x), 
+                   col = "darkgreen",lty=2) 
+          points(t(p), col="blue", pch=16)
+          
+          text(t(p), paste(round(pnorm(upper.x),4)), adj=-0.2)
+          
+          p2 <- c(lower.x, pnorm(lower.x))#pnorm(1, mean = 0 , sd=1)
+          points(t(p2), col="blue", pch=16)
+          text(t(p2), paste(round(pnorm(lower.x),4)), adj=-0.2)
+          
+          segments(x0 = lower.x, y0 = lower.x, x1 = lower.x, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          segments(x0 = lower.x, y0 = pnorm(lower.x), x1 = -4, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          axis(1,at=c(-4,-3,-2,-1,0,1,2,3,4))
+          x1<-ifelse(x<=upper.x&x>=lower.x,x,NA)
+          cum1<-ifelse(cumulative<=pnorm(upper.x)&cumulative>=pnorm(lower.x),cumulative,NA)
+          p1<-cbind(x1,cum1)
+          points(p1, col="blue", pch=16)
+        }
+        
+        if((lower.x<0) & (upper.x>=0)){
+          
+          mtext(paste("area:", round((pnorm(upper.x)-pnorm(lower.x)),4)), side = 3)
+          
+          p <- c(upper.x, pnorm(upper.x))
+          segments(x0 = upper.x, y0 = lower.x, x1 = upper.x, y1 = pnorm(upper.x), col = "darkgreen",lty=2) 
+          segments(x0 = upper.x, y0 = pnorm(upper.x), x1 = -4, y1 = pnorm(upper.x), 
+                   col = "darkgreen",lty=2) 
+          points(t(p), col="blue", pch=16)
+          text(t(p), paste(round(pnorm(upper.x),4)), adj=-0.2)
+          p2 <- c(lower.x, pnorm(lower.x))
+          points(t(p2), col="blue", pch=16)
+          text(t(p2), paste(round(pnorm(lower.x),4)), adj=-0.2)
+          segments(x0 = lower.x, y0 = lower.x, x1 = lower.x, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          segments(x0 = lower.x, y0 = pnorm(lower.x), x1 = -4, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          axis(1,at=c(-4,-3,-2,-1,0,1,2,3,4))
+          x1<-ifelse(x<=upper.x&x>=lower.x,x,NA)
+          cum1<-ifelse(cumulative<=pnorm(upper.x)&cumulative>=pnorm(lower.x),cumulative,NA)
+          p1<-cbind(x1,cum1)
+          points(p1, col="blue", pch=16)
+          
+        }
+        
+        
+        
+        if((lower.x<0) & (upper.x<0)&(lower.x<upper.x)){
+          
+          mtext(paste("area:", round((pnorm(upper.x)-pnorm(lower.x)),4)), side = 3)
+          
+          p <- c(upper.x, pnorm(upper.x))#pnorm(1, mean = 0 , sd=1)
+          segments(x0 = upper.x, y0 = lower.x, x1 = upper.x, y1 = pnorm(upper.x), col = "darkgreen",lty=2) 
+          segments(x0 = upper.x, y0 = pnorm(upper.x), x1 = -4, y1 = pnorm(upper.x), 
+                   col = "darkgreen",lty=2) 
+          points(t(p), col="blue", pch=16)
+          text(t(p), paste(round(pnorm(upper.x),4)), adj=-0.2)
+          p2 <- c(lower.x, pnorm(lower.x))#pnorm(1, mean = 0 , sd=1)
+          points(t(p2), col="blue", pch=16)
+          text(t(p2), paste(round(pnorm(lower.x),4)), adj=-0.2)
+          segments(x0 = lower.x, y0 = lower.x, x1 = lower.x, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          segments(x0 = lower.x, y0 = pnorm(lower.x), x1 = -4, y1 = pnorm(lower.x), col = "darkgreen",lty=2) 
+          axis(1,at=c(-4,-3,-2,-1,0,1,2,3,4))
+          x1<-ifelse(x<=upper.x&x>=lower.x,x,NA)
+          cum1<-ifelse(cumulative<=pnorm(upper.x)&cumulative>=pnorm(lower.x),cumulative,NA)
+          p1<-cbind(x1,cum1)
+          points(p1, col="blue", pch=16)
+          
+        }
+        
+        
+      }
+      
+    } 
+    
+    
+    
+    
+    
     
   }
   
@@ -333,19 +541,10 @@ CSareas<-function(cs="Standard Normal",lower.x=NULL, upper.x=NULL, side,deg.fred
         polygon(x1,y1, lty = 3, border = NULL, col = "White")
         
       }
-      
-      
     }
-    
     
   }
   
   
   
 }
-
-
-
-
-
-
