@@ -4,6 +4,7 @@
 #' @param lower.x the lower bound of the symmetric and continuous distribution;
 #' @param upper.x the upper bound of the symmetric and continuous distribution;
 #' @param side it can be `left`, if the area is on the left side of the area; `right` if the area is on the right; `between` if the area is between two values
+#' @param deg.fred is the degree of freedom and it would be required if it is the t-Student (cs="t")
 #' @return the area under the standardized Normal distribution
 #' @export
 #' @examples

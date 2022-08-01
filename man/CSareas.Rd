@@ -15,6 +15,8 @@ CSareas(cs = "Standard Normal", lower.x = NULL, upper.x = NULL, side, deg.fred)
 \item{upper.x}{the upper bound of the symmetric and continuous distribution;}
 
 \item{side}{it can be \code{left}, if the area is on the left side of the area; \code{right} if the area is on the right; \code{between} if the area is between two values}
+
+\item{deg.fred}{is the degree of freedom and it would be required if it is the t-Student (cs="t")}
 }
 \value{
 the area under the standardized Normal distribution
