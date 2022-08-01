@@ -28,6 +28,8 @@ area(
 \item{density}{draw the kernel density function from the data}
 
 \item{titles}{it the title on the top of the plot}
+
+\item{cs}{by default is for standard Normal distribution; if it is \emph{cs="t"} than it is referring to a t-Student}
 }
 \value{
 the area under the standardized Normal distribution

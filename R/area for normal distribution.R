@@ -1,5 +1,6 @@
 #' Draw the area under a standardized Normal density curve
 #'
+#' @param cs by default is for standard Normal distribution; if it is *cs="t"* than it is referring to a t-Student
 #' @param lower.x the lower bound for a standardized Normal distribution, by default it is equal to -4
 #' @param upper.x the upper bound for a standardized Normal distribution, by default it is equal to 4
 #' @param mu the population mean, by default is equal to zero
