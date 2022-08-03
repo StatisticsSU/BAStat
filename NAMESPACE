@@ -2,7 +2,7 @@
 
 export(CI)
 export(CSPvalues)
-export(CSareas)
+export(CdistrAreas)
 export(Exy)
 export(area)
 export(binProbsPlots)
