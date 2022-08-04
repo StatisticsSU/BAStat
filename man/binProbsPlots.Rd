@@ -3,7 +3,7 @@
 %   for binomial distribution.R
 \name{binProbsPlots}
 \alias{binProbsPlots}
-\title{plot a Binomial distribution or the CDF for a Binomial distribution.}
+\title{plot for a Binomial distribution or plot the cumulative distribution function (CDF) of a Binomial distribution.}
 \usage{
 binProbsPlots(
   size,
@@ -32,27 +32,21 @@ binProbsPlots(
 
 \item{side}{it can be \code{equal} and it the plot with the probability in one specific value that it will assigned in \code{value.x}; if side it is equal to \code{left} then the probability is considered to be on the left side or equal to the chosen value; \code{right} if the probability is on the right side or equal to the chosen value; \code{between} if it is referred to the probability between or equal to two values and in that case it has to be specified \code{lower.x} and \code{upper.x}}
 
+\item{value.x}{the point of the probability P(X=x) or  P(X>=x) or  P(X<=x)}
+
+\item{lower.x}{the first point of the probability in between P(xl<=X<=xu)}
+
+\item{upper.x}{the second point of the probability in between P(xl<=X<=xu)}
+
 \item{cdf}{if it is true then it is drawn the CDF of the Binomial distribution and on the top of the plot it is shown the difference between the extremes}
-
-\item{distr}{by default is intended to use the Normal distribution, otherwise specify \emph{distr="t"} for the t-distribution or \emph{distr="binom"} for the Binomial distribution.}
-
-\item{alpha}{the confidence level;}
-
-\item{center}{the mean of the sample for the Normal or t-distribution, the number of successes divided by the number of observations for the proportion}
-
-\item{stddev}{the standard deviation of the sample for the t-distribution; or the standard deviation of the population in case of normality or the use of central limit theorem for the normal approximation; the standard deviation based on the estimated proportion}
-
-\item{n}{number of observations}
-
-\item{degree.fred}{for the t-distribution: specify the number of degrees of freedom}
 }
 \value{
-the confidence level, the statistical marginal error, the lower and upper bound of the confidence interval. In case of proportion and the number of observations is greater than 50, it is also added the Yates' continuity. In the plots area are also automatically simulated and shown the 200 sampled confidence interval in order to remind that the parameter of the population is unknown and it is only possible to guess with a certain confidence where the parameter should be located
+the distribution plot or the CDF plot and the values of the probabilities
 
 the probability distribution or the CDF of the Binomial distribution
 }
 \description{
-plot a Binomial distribution or the CDF for a Binomial distribution.
+plot for a Binomial distribution or plot the cumulative distribution function (CDF) of a Binomial distribution.
 
 Draw the the probability of the Binomial distribution and combine with the cumulative distribution function.
 }
