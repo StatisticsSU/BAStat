@@ -3,7 +3,7 @@
 %   t-student.R
 \name{CdistrAreas}
 \alias{CdistrAreas}
-\title{Draw the area for continuous distributions: in this function is included the Standard Normal distribution and the CDF; the t-Student density, the chi-squared and F-Fisher density}
+\title{Draw the area for continuous distributions: in this function is included the Standard Normal distribution and its CDF; t-Student, chi-squared and F-Fisher density on demand.}
 \usage{
 CdistrAreas(
   distr = "Standard Normal",
@@ -39,7 +39,7 @@ If \emph{distr="chi.sq"} it is the chi-squared between 0 and 30 be drawn. Also i
 the area under the standardized Normal distribution or the CDF for the normal or the area for the t-Student, chi-squared or F-Fisher density
 }
 \description{
-Draw the area for continuous distributions: in this function is included the Standard Normal distribution and the CDF; the t-Student density, the chi-squared and F-Fisher density
+Draw the area for continuous distributions: in this function is included the Standard Normal distribution and its CDF; t-Student, chi-squared and F-Fisher density on demand.
 }
 \examples{
 library(BAStat)
@@ -87,14 +87,20 @@ CdistrAreas(distr="t",lower.x=-3,upper.x=-2.49,deg.fred = 23,side="between")#P(-
 CdistrAreas(distr="t",lower.x=2,upper.x=-1,deg.fred = 23,side="between")#wrong!
 CdistrAreas(distr="t",lower.x=-1,upper.x=-2,deg.fred = 23,side="between")#wrong!
 
-#different areas with same bounds if it is normal or t-student we get -numerically-different areas
+#different areas with same bounds if it is normal or t-student distribution, we get -numerically-different areas
 CdistrAreas(lower.x=1,upper.x=2,side="between")
 CdistrAreas(distr="t",lower.x=1,upper.x=2,deg.fred=23,side="between")
 
-###chi.squared
-CdistrAreas(distr="chi.sq",value.x =11,deg.fred=5,side="left")
-CdistrAreas(distr="chi.sq",value.x=11,deg.fred=5,side="right")
-CdistrAreas(distr="chi.sq",lower.x=11,upper.x=12,deg.fred=5,side="between")
+#Chisq-different plots are produced in order to see the tail on the right hand side
+CdistrAreas(distr="chi.sq",upper.x=40,deg.fred = 23,side="left")#P(x2<40)
+CdistrAreas(distr="chi.sq",upper.x=20,deg.fred = 12,side="left")#p(x2<-20)
+
+CdistrAreas(distr="chi.sq",lower.x=40,deg.fred = 23,side="right")#P(x2>40)
+CdistrAreas(distr="chi.sq",lower.x=20,deg.fred = 12,side="right")#P(x2>20)
+
+CdistrAreas(distr="chi.sq",lower.x=12,upper.x=52,deg.fred = 10,side="between") #P(12<x2<52)
+CdistrAreas(distr="chi.sq",lower.x=12,upper.x=15,deg.fred = 10,side="between") #P(12<x2<15)
+CdistrAreas(distr="chi.sq",lower.x=52,upper.x=53,deg.fred = 20,side="between")#P(52<x2<53)
 
 ###Fisher
 CdistrAreas(distr="Fisher",value.x =2,deg.fred1=5,deg.fred2=10,side="left")

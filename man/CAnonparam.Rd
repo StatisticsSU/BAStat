@@ -2,7 +2,7 @@
 % Please edit documentation in R/nonparametric test chisq.R
 \name{CAnonparam}
 \alias{CAnonparam}
-\title{plot decision for nonparametric test based on chi-squared with p-values and area in comparison}
+\title{plot and decide in case of nonparametric test based on chi-squared distribution with p-values and area in comparison}
 \usage{
 CAnonparam(Crit, Obs, df)
 }
@@ -17,7 +17,7 @@ CAnonparam(Crit, Obs, df)
 two plots: on the left side the chi-squared distribution and the comparison between the theoretical and observed value; on the right side it is computed the same chi-squared but focusing on the areas. In this plot on the right side there is the p-value and the theoretical alpha-value and on top there is the decision: if it can be rejected or not the null hypothesis.
 }
 \description{
-plot decision for nonparametric test based on chi-squared with p-values and area in comparison
+plot and decide in case of nonparametric test based on chi-squared distribution with p-values and area in comparison
 }
 \examples{
 library(BAStat)

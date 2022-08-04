@@ -1,4 +1,4 @@
-#' plot and decide for nonparametric test based on chi-squared distribution with p-values and area in comparison
+#' plot and decide in case of nonparametric test based on chi-squared distribution with p-values and area in comparison
 #' 
 #' @param Crit is the quantile on the right side of the chi-squared distribution (it can be known or computed right away)
 #' @param Obs observed value from chi-square computation
