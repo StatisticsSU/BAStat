@@ -131,14 +131,24 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
     upper_bound<- (p.c + z22n + z * sqrt(p.c * (1 - p.c)/n + z22n/(2 * n)))/(1 + 2 * z22n)
     p.c <- center - YATES/n
     lower_bound<- (p.c + z22n - z * sqrt(p.c * (1 - p.c)/n + z22n/(2 * n)))/(1 + 2 * z22n)
+    
+    error<-qnorm(1-alpha/2)*stddev
+    lower_bound1 <- center - error
+    upper_bound1 <- center + error
+    
+    cat("(lower bound; upper bound)\n------------------------------------------------\n");
+    print(c(lower_bound1,upper_bound1), digits = 5, na.print = "")
+    
+    
     cat("(lower bound; upper bound) with Yates correction for continuity\n------------------------------------------------\n")
     print(c(lower_bound,upper_bound), digits = 5, na.print = "")
+    
     cat("confidence level\n------------------------------------------------\n");
     print(1-alpha, digits = 5, na.print = "")
     cat("the statistical margin of error\n------------------------------------------------\n");
     print(error, digits = 5, na.print = "")
-    cat("(lower bound; upper bound)\n------------------------------------------------\n");
-    print(c(lower_bound,upper_bound), digits = 5, na.print = "")
+    
+    
     
     #return(c(lower_bound,upper_bound))
     lower <- numeric(10000)
@@ -239,7 +249,6 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
   }
   
 }
-
 
 
 
