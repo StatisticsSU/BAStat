@@ -1,8 +1,8 @@
-#' Confidence intervals (CI) for the mean of one population supposed to be Normal, with known and unknown variance;CI based on Binomial distribution and chi-squared distribution. 
+#' Confidence intervals (CI) for the mean of one population. 
 #' 
-#' There are several functions in R for those computations and in particular for the proportion there are several formulas for the correction to normality. 
+#' There are several functions in R for those computations and in particular for the proportion there are many formulas for the correction to normality and decentralizing the attention to the the initial formula and the power of the central limit theorem.
 #'
-#' @param distr by default is intended to use the Normal distribution, otherwise specify *distr="t"* for the t-distribution or *distr="binom"* for the Binomial distribution.
+#' @param distr by default is intended to use the Normal distribution, otherwise specify *distr="t"* for t-distribution or *distr="binom"* for Binomial distribution; *distr="chi.sq"* for chi-squared distribution.
 #' @param alpha the confidence level;
 #' @param center the mean of the sample for the Normal or t-distribution, the number of successes divided by the number of observations for the proportion
 #' @param stddev the standard deviation of the sample for the t-distribution; or the standard deviation of the population in case of normality or the use of central limit theorem for the normal approximation; the standard deviation based on the estimated proportion

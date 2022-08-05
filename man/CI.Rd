@@ -2,7 +2,7 @@
 % Please edit documentation in R/confidence interval for one population.R
 \name{CI}
 \alias{CI}
-\title{Confidence intervals (CI) for the mean of one population supposed to be Normal, with known and unknown variance;CI based on Binomial distribution and chi-squared distribution.}
+\title{Confidence intervals (CI) for the mean of one population.}
 \usage{
 CI(
   distr = "Standard Normal",
@@ -14,7 +14,7 @@ CI(
 )
 }
 \arguments{
-\item{distr}{by default is intended to use the Normal distribution, otherwise specify \emph{distr="t"} for the t-distribution or \emph{distr="binom"} for the Binomial distribution.}
+\item{distr}{by default is intended to use the Normal distribution, otherwise specify \emph{distr="t"} for t-distribution or \emph{distr="binom"} for Binomial distribution; \emph{distr="chi.sq"} for chi-squared distribution.}
 
 \item{alpha}{the confidence level;}
 
@@ -33,7 +33,7 @@ On the x-axes is also included the number of times the simulation of the boundar
 In case of chi-squared distribution it is produced the density function and the confidence intervals. The focus is on the asymmetric effect on the probabilities.
 }
 \description{
-There are several functions in R for those computations and in particular for the proportion there are several formulas for the correction to normality.
+There are several functions in R for those computations and in particular for the proportion there are many formulas for the correction to normality and decentralizing the attention to the the initial formula and the power of the central limit theorem.
 }
 \examples{
 library(BAStat)
