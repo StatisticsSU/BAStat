@@ -27,7 +27,9 @@ CI(
 \item{degree.fred}{for the t-distribution: specify the number of degrees of freedom}
 }
 \value{
-the confidence level, the statistical marginal error, the lower and upper bound of the confidence interval. In case of proportion and the number of observations is greater than 50, it is also added the Yates' continuity. In the plots area are also automatically simulated and shown the 200 sampled confidence interval in order to remind that the parameter of the population is unknown and it is only possible to guess with a certain confidence where the parameter should be located.
+the confidence level, the statistical marginal error, the lower and upper bound of the confidence interval.
+In case of proportion and the number of observations is greater than 50, it is also added the Yates' continuity. In the plots area are also automatically simulated and shown the 200 sampled confidence interval in order to remind that the parameter of the population is unknown and it is only possible to guess with a certain confidence where the parameter should be.
+On the x-axes is also included the number of times the simulation of the boundaries are not including the true parameter.
 In case of chi-squared distribution it is produced the density function and the confidence intervals. The focus is on the asymmetric effect on the probabilities.
 }
 \description{
