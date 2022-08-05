@@ -64,7 +64,7 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
     
   }
   
-  
+  ##################
   
   if(distr=="Standard Normal"){
     error <- qnorm(1-alpha/2)*stddev/sqrt(n)
@@ -102,23 +102,7 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
   
   
   if(distr=="binom"){
-    
     error<-qnorm(1-alpha/2)*stddev
-    
-    
-    if(n>=50){
-      #Yates continuity as in prop.test
-      YATES <- 0.5
-      z<-qnorm(1-alpha/2)
-      YATES <- min(YATES, abs(1 - n * 0.05)) 
-      z22n <- z^2/(2 * n)
-      p.c <- center + YATES/n
-      upper_bound<- (p.c + z22n + z * sqrt(p.c * (1 - p.c)/n + z22n/(2 * n)))/(1 + 2 * z22n)
-      p.c <- center - YATES/n
-      lower_bound<- (p.c + z22n - z * sqrt(p.c * (1 - p.c)/n + z22n/(2 * n)))/(1 + 2 * z22n)
-      cat("(lower bound; upper bound)\n------------------------------------------------\n");
-      print(c(lower_bound,upper_bound), digits = 5, na.print = "")
-    }
     
     lower <- numeric(10000)
     upper <- numeric(10000)
@@ -131,54 +115,114 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
       upper[i] <- mean(Y) + qnorm(1-alpha/2)*pp
     }
     
+  }
+  
+  if((distr=="binom")&(n>=50)){
+    #Yates continuity as in prop.test
+    YATES <- 0.5
+    z<-qnorm(1-alpha/2)
+    YATES <- min(YATES, abs(1 - n * 0.05)) 
+    z22n <- z^2/(2 * n)
+    p.c <- center + YATES/n
+    upper_bound<- (p.c + z22n + z * sqrt(p.c * (1 - p.c)/n + z22n/(2 * n)))/(1 + 2 * z22n)
+    p.c <- center - YATES/n
+    lower_bound<- (p.c + z22n - z * sqrt(p.c * (1 - p.c)/n + z22n/(2 * n)))/(1 + 2 * z22n)
+    cat("(lower bound; upper bound)\n------------------------------------------------\n")
+    print(c(lower_bound,upper_bound), digits = 5, na.print = "")
+    #return(c(lower_bound,upper_bound))
+    lower <- numeric(10000)
+    upper <- numeric(10000)
+    
+    # loop sampling / estimation / CI
+    for(i in 1:10000) {
+      Y <- rbinom(n,size=1,prob=center)
+      pp<-sqrt(mean(Y) * (1 - (mean(Y)))/n)
+      lower[i] <- mean(Y) - qnorm(1-alpha/2)*pp
+      upper[i] <- mean(Y) + qnorm(1-alpha/2)*pp
+    }
+    
+    
+    CIs <- cbind(lower, upper)
+    
+    ID <- which(!(CIs[1:200, 1] <= center & center <= CIs[1:200, 2]))
+    
+    # initialize the plot
+    plot(center, 
+         xlim = c(lower_bound, upper_bound), 
+         ylim = c(1, 200), 
+         ylab = "Simulation from the first 200 samples", 
+         xlab = "", 
+         main = "Confidence interval")
+    
+    
+    
+    #fix the color
+    colors <- rep(gray(0.4), 200)
+    colors[ID] <- "red"
+    for(j in 1:200) {
+      lines(c(CIs[j, 1], CIs[j, 2]), 
+            c(j, j), 
+            col = colors[j], 
+            lwd = 2)
+    } 
+    
+    abline(v = lower_bound, lty = 2,lwd=2,col="orange")
+    abline(v = upper_bound, lty = 2,lwd=2,col="orange")
+    abline(v = center, lty = 2,lwd=2)
+    
+    
+    
     
   } 
   
-  lower_bound <- center - error
-  upper_bound <- center + error
-  
-  cat("confidence level\n------------------------------------------------\n");
-  print(1-alpha, digits = 5, na.print = "")
-  cat("the statistical margin of error\n------------------------------------------------\n");
-  print(error, digits = 5, na.print = "")
-  cat("(lower bound; upper bound)\n------------------------------------------------\n");
-  print(c(lower_bound,upper_bound), digits = 5, na.print = "")
-  #  }#if I change here it is only for the binomial
-  
-  CIs <- cbind(lower, upper)
-  
-  ID <- which(!(CIs[1:200, 1] <= center & center <= CIs[1:200, 2]))
-  
-  # initialize the plot
-  plot(center, 
-       xlim = c(lower_bound, upper_bound), 
-       ylim = c(1, 200), 
-       ylab = "Simulation from the first 200 samples", 
-       xlab = "", 
-       main = "Confidence interval")
-  
-  
-  
-  #fix the color
-  colors <- rep(gray(0.4), 200)
-  colors[ID] <- "red"
-  for(j in 1:200) {
-    lines(c(CIs[j, 1], CIs[j, 2]), 
-          c(j, j), 
-          col = colors[j], 
-          lwd = 2)
-  } 
-  
-  abline(v = lower_bound, lty = 2,lwd=2,col="orange")
-  abline(v = upper_bound, lty = 2,lwd=2,col="orange")
-  abline(v = center, lty = 2,lwd=2)
-  
-  
-  if(distr=="binom"){mtext("based on Binomial distribution",side=3)}
-  if(distr=="t"){mtext("based on t-distribution",side=3)}
-  if(distr=="Standard Normal"){mtext("based on Standard Normal distribution",side=3)}
-  
+  if((distr=="Standard Normal")|(distr=="t")|((distr=="binom")&(n<50))){
+    
+    
+    
+    lower_bound <- center - error
+    upper_bound <- center + error
+    
+    cat("confidence level\n------------------------------------------------\n");
+    print(1-alpha, digits = 5, na.print = "")
+    cat("the statistical margin of error\n------------------------------------------------\n");
+    print(error, digits = 5, na.print = "")
+    cat("(lower bound; upper bound)\n------------------------------------------------\n");
+    print(c(lower_bound,upper_bound), digits = 5, na.print = "")
+    
+    
+    CIs <- cbind(lower, upper)
+    
+    ID <- which(!(CIs[1:200, 1] <= center & center <= CIs[1:200, 2]))
+    
+    # initialize the plot
+    plot(center, 
+         xlim = c(lower_bound, upper_bound), 
+         ylim = c(1, 200), 
+         ylab = "Simulation from the first 200 samples", 
+         xlab = "", 
+         main = "Confidence interval")
+    
+    
+    
+    #fix the color
+    colors <- rep(gray(0.4), 200)
+    colors[ID] <- "red"
+    for(j in 1:200) {
+      lines(c(CIs[j, 1], CIs[j, 2]), 
+            c(j, j), 
+            col = colors[j], 
+            lwd = 2)
+    } 
+    
+    abline(v = lower_bound, lty = 2,lwd=2,col="orange")
+    abline(v = upper_bound, lty = 2,lwd=2,col="orange")
+    abline(v = center, lty = 2,lwd=2)
+    
+    
+    if((distr=="binom")|((distr=="binom")&(n>=50))){mtext("based on Binomial distribution",side=3)}
+    if(distr=="t"){mtext("based on t-distribution",side=3)}
+    if(distr=="Standard Normal"){mtext("based on Standard Normal distribution",side=3)}
+  }
   
 }
-
 
