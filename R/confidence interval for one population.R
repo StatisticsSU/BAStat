@@ -175,8 +175,7 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
     abline(v = lower_bound, lty = 2,lwd=2,col="orange")
     abline(v = upper_bound, lty = 2,lwd=2,col="orange")
     abline(v = center, lty = 2,lwd=2)
-    mtext(paste(timesoutperc,"%","number of times the true parameter was not in"),side=1,line=2)
-    
+    mtext(paste(timesoutperc,"%","number of times the true parameter was not included"),side=1,line=2)  
     
     
   } 
