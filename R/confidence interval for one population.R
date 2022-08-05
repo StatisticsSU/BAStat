@@ -1,4 +1,6 @@
-#' Confidence intervals for the mean of one population supposed to be Normal, with known and unknown variance and Binomial. There are several functions in R for those computations and in particular for the proportion there are several formulas for correction to the normality. 
+#' Confidence intervals (CI) for the mean of one population supposed to be Normal, with known and unknown variance;CI based on Binomial distribution and chi-squared distribution. 
+#' 
+#' There are several functions in R for those computations and in particular for the proportion there are several formulas for the correction to normality. 
 #'
 #' @param distr by default is intended to use the Normal distribution, otherwise specify *distr="t"* for the t-distribution or *distr="binom"* for the Binomial distribution.
 #' @param alpha the confidence level;
@@ -6,38 +8,80 @@
 #' @param stddev the standard deviation of the sample for the t-distribution; or the standard deviation of the population in case of normality or the use of central limit theorem for the normal approximation; the standard deviation based on the estimated proportion
 #' @param n number of observations
 #' @param degree.fred for the t-distribution: specify the number of degrees of freedom
-#' @return the confidence level, the statistical marginal error, the lower and upper bound of the confidence interval. In case of proportion and the number of observations is greater than 50, it is also added the Yates' continuity. In the plots area are also automatically simulated and shown the 200 sampled confidence interval in order to remind that the parameter of the population is unknown and it is only possible to guess with a certain confidence where the parameter should be located
+#' @return the confidence level, the statistical marginal error, the lower and upper bound of the confidence interval. In case of proportion and the number of observations is greater than 50, it is also added the Yates' continuity. In the plots area are also automatically simulated and shown the 200 sampled confidence interval in order to remind that the parameter of the population is unknown and it is only possible to guess with a certain confidence where the parameter should be located.
+#' In case of chi-squared distribution it is produced the density function and the confidence intervals. The focus is on the asymmetric effect on the probabilities.
 #' @export
 #' @examples
 #' library(BAStat)
 #' 
 #' CI(alpha=0.05,center=12,stddev=3,n=30)#in case of Normal distribution
 #' CI(distr="t",alpha=0.05,center=12,stddev=3,n=15,degree.fred=15-1) #for the t-distribution
-#' phat<-7/12#number of success divided by the number of observations
+#' #Binomial
+#' phat<-7/12#number of successes divided by the number of observations
 #' CI(distr="binom",alpha=0.05,center=phat,stddev=0.1423,n=12) #for the binomial and n is less than 50
-#' x<-70 #number of success
+#' x<-70 #number of successes
 #' n<-120 #number of observations
-#' 
+#' #n>50
 #' stddev<-sqrt((x/n*(1-x/n)/n))
 #' CI(distr="binom",alpha=0.05,center=70/120,stddev=stddev,n=120)
+#' #Chi-squared distribution
+#' CI(distr="chi.sq",alpha=0.10,stddev=sqrt(10.57),n=3,degree.fred=2)
 
-
-
-CI<-function(distr="Standard Normal",alpha,center,stddev,n,degree.fred){
+CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree.fred=NULL){
   
-  error <- qnorm(1-alpha/2)*stddev/sqrt(n)
-   lower <- numeric(10000)
-  upper <- numeric(10000)
-  
-  # loop sampling / estimation / CI
-  for(i in 1:10000) {
+  if(distr=="chi.sq"){
     
-    Y <- rnorm(n,mean=center,sd=stddev)
-    lower[i] <- mean(Y) - qnorm(1-alpha/2)*sd(Y)/sqrt(n)
-    upper[i] <- mean(Y) + qnorm(1-alpha/2)*sd(Y)/sqrt(n)
+    errorl <- qchisq(alpha/2, df=degree.fred)
+    erroru <- qchisq(1-alpha/2, df=degree.fred)
+    
+    
+    lower_bound <-  (stddev^2*degree.fred)/erroru
+    upper_bound <- (stddev^2*degree.fred)/errorl
+    
+    cat("confidence level\n------------------------------------------------\n");
+    print(1-alpha, digits = 5, na.print = "")
+    cat("Quantiles of the Chi-squared distribution\n------------------------------------------------\n");
+    print(c(errorl, erroru), digits = 5, na.print = "")
+    cat("(lower bound; upper bound)\n------------------------------------------------\n");
+    print(c(lower_bound,upper_bound), digits = 5, na.print = "")
+    
+    
+    min.x<-0
+    max.x<-upper_bound+5
+    x<-seq(min.x,max.x,by=1)
+    y<-dchisq(x,df=degree.fred)
+    
+    
+    plot(x,y, type = "l", xlab = expression(chi^2), ylab = "Chi-squared density",main="Inequality of the probabilities in CI",lwd=1,xaxt="n")
+    axis(1,at=seq(0,max.x,by=5),lwd=0.1)
+    
+    abline(v = lower_bound, lty = 2,lwd=2,col="orange")
+    abline(v = upper_bound, lty = 2,lwd=2,col="orange")
+    p<-c(lower_bound, round(mean(y),4))
+    text(p,paste(round(lower_bound,4)),adj=-0.2,col="red")
+    p<-c(upper_bound, round(mean(y),4))
+    text(t(p),paste(round(upper_bound,4)),col="red")
     
   }
   
+  
+  
+  if(distr=="Standard Normal"){
+    error <- qnorm(1-alpha/2)*stddev/sqrt(n)
+    
+    lower <- numeric(10000)
+    upper <- numeric(10000)
+    
+    # loop sampling / estimation / CI
+    for(i in 1:10000) {
+      
+      Y <- rnorm(n,mean=center,sd=stddev)
+      lower[i] <- mean(Y) - qnorm(1-alpha/2)*sd(Y)/sqrt(n)
+      upper[i] <- mean(Y) + qnorm(1-alpha/2)*sd(Y)/sqrt(n)
+      
+    }
+    
+  }
   
   
   if(distr=="t"){
@@ -51,11 +95,16 @@ CI<-function(distr="Standard Normal",alpha,center,stddev,n,degree.fred){
       lower[i] <- mean(Y) - qt(1-alpha/2, df=degree.fred)*sd(Y)/sqrt(n)
       upper[i] <- mean(Y) + qt(1-alpha/2, df=degree.fred)*sd(Y)/sqrt(n)
     }
+    
+    
   }
+  
+  
   
   if(distr=="binom"){
     
     error<-qnorm(1-alpha/2)*stddev
+    
     
     if(n>=50){
       #Yates continuity as in prop.test
@@ -67,7 +116,7 @@ CI<-function(distr="Standard Normal",alpha,center,stddev,n,degree.fred){
       upper_bound<- (p.c + z22n + z * sqrt(p.c * (1 - p.c)/n + z22n/(2 * n)))/(1 + 2 * z22n)
       p.c <- center - YATES/n
       lower_bound<- (p.c + z22n - z * sqrt(p.c * (1 - p.c)/n + z22n/(2 * n)))/(1 + 2 * z22n)
-      cat("lower bound and upper bound with Yate's continuity\n------------------------------------------------\n");
+      cat("(lower bound; upper bound)\n------------------------------------------------\n");
       print(c(lower_bound,upper_bound), digits = 5, na.print = "")
     }
     
@@ -81,8 +130,9 @@ CI<-function(distr="Standard Normal",alpha,center,stddev,n,degree.fred){
       lower[i] <- mean(Y) - qnorm(1-alpha/2)*pp
       upper[i] <- mean(Y) + qnorm(1-alpha/2)*pp
     }
-  }
-  
+    
+    
+  } 
   
   lower_bound <- center - error
   upper_bound <- center + error
@@ -91,9 +141,9 @@ CI<-function(distr="Standard Normal",alpha,center,stddev,n,degree.fred){
   print(1-alpha, digits = 5, na.print = "")
   cat("the statistical margin of error\n------------------------------------------------\n");
   print(error, digits = 5, na.print = "")
-  cat("lower bound and upper bound\n------------------------------------------------\n");
+  cat("(lower bound; upper bound)\n------------------------------------------------\n");
   print(c(lower_bound,upper_bound), digits = 5, na.print = "")
-  
+  #  }#if I change here it is only for the binomial
   
   CIs <- cbind(lower, upper)
   
@@ -106,6 +156,8 @@ CI<-function(distr="Standard Normal",alpha,center,stddev,n,degree.fred){
        ylab = "Simulation from the first 200 samples", 
        xlab = "", 
        main = "Confidence interval")
+  
+  
   
   #fix the color
   colors <- rep(gray(0.4), 200)
@@ -122,4 +174,11 @@ CI<-function(distr="Standard Normal",alpha,center,stddev,n,degree.fred){
   abline(v = center, lty = 2,lwd=2)
   
   
+  if(distr=="binom"){mtext("based on Binomial distribution",side=3)}
+  if(distr=="t"){mtext("based on t-distribution",side=3)}
+  if(distr=="Standard Normal"){mtext("based on Standard Normal distribution",side=3)}
+  
+  
 }
+
+

@@ -2,9 +2,16 @@
 % Please edit documentation in R/confidence interval for one population.R
 \name{CI}
 \alias{CI}
-\title{Confidence intervals for the mean of one population supposed to be Normal, with known and unknown variance and Binomial. There are several functions in R for those computations and in particular for the proportion there are several formulas for correction to the normality.}
+\title{Confidence intervals (CI) for the mean of one population supposed to be Normal, with known and unknown variance;CI based on Binomial distribution and chi-squared distribution.}
 \usage{
-CI(distr = "Standard Normal", alpha, center, stddev, n, degree.fred)
+CI(
+  distr = "Standard Normal",
+  alpha,
+  center = NULL,
+  stddev = NULL,
+  n = NULL,
+  degree.fred = NULL
+)
 }
 \arguments{
 \item{distr}{by default is intended to use the Normal distribution, otherwise specify \emph{distr="t"} for the t-distribution or \emph{distr="binom"} for the Binomial distribution.}
@@ -20,21 +27,25 @@ CI(distr = "Standard Normal", alpha, center, stddev, n, degree.fred)
 \item{degree.fred}{for the t-distribution: specify the number of degrees of freedom}
 }
 \value{
-the confidence level, the statistical marginal error, the lower and upper bound of the confidence interval. In case of proportion and the number of observations is greater than 50, it is also added the Yates' continuity. In the plots area are also automatically simulated and shown the 200 sampled confidence interval in order to remind that the parameter of the population is unknown and it is only possible to guess with a certain confidence where the parameter should be located
+the confidence level, the statistical marginal error, the lower and upper bound of the confidence interval. In case of proportion and the number of observations is greater than 50, it is also added the Yates' continuity. In the plots area are also automatically simulated and shown the 200 sampled confidence interval in order to remind that the parameter of the population is unknown and it is only possible to guess with a certain confidence where the parameter should be located.
+In case of chi-squared distribution it is produced the density function and the confidence intervals. The focus is on the asymmetric effect on the probabilities.
 }
 \description{
-Confidence intervals for the mean of one population supposed to be Normal, with known and unknown variance and Binomial. There are several functions in R for those computations and in particular for the proportion there are several formulas for correction to the normality.
+There are several functions in R for those computations and in particular for the proportion there are several formulas for the correction to normality.
 }
 \examples{
 library(BAStat)
 
 CI(alpha=0.05,center=12,stddev=3,n=30)#in case of Normal distribution
 CI(distr="t",alpha=0.05,center=12,stddev=3,n=15,degree.fred=15-1) #for the t-distribution
-phat<-7/12#number of success divided by the number of observations
+#Binomial
+phat<-7/12#number of successes divided by the number of observations
 CI(distr="binom",alpha=0.05,center=phat,stddev=0.1423,n=12) #for the binomial and n is less than 50
-x<-70 #number of success
+x<-70 #number of successes
 n<-120 #number of observations
-
+#n>50
 stddev<-sqrt((x/n*(1-x/n)/n))
 CI(distr="binom",alpha=0.05,center=70/120,stddev=stddev,n=120)
+#Chi-squared distribution
+CI(distr="chi.sq",alpha=0.10,stddev=sqrt(10.57),n=3,degree.fred=2)
 }
