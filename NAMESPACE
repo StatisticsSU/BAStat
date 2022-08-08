@@ -2,6 +2,7 @@
 
 export(CAnonparam)
 export(CI)
+export(CIT2pop)
 export(CSPvalues)
 export(CdistrAreas)
 export(Exy)
