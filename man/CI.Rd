@@ -29,7 +29,7 @@ CI(
 \value{
 the confidence level, the statistical marginal error, the lower and upper bound of the confidence interval.
 In case of proportion and the number of observations is greater than 50, it is also added the Yates' continuity. In the plots area are also automatically simulated and shown the first 200 sampled confidence intervals in order to remind that the parameter of the population is unknown and it is only possible to guess with a certain confidence where the parameter should be.
-On the x-axes is also included the coverage obtained by the simulations. It represent the percentage of times the true parameter was in the bound of the confidence interval.
+On the x-axes is also included the coverage obtained by the simulations. It shows the percentage of times the true parameter was between the bounds of the confidence interval.
 In case of chi-squared distribution it is produced the density function and the confidence intervals. The focus is on the asymmetric effect on the probabilities.
 }
 \description{
