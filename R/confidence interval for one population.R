@@ -9,8 +9,8 @@
 #' @param n number of observations
 #' @param degree.fred for the t-distribution: specify the number of degrees of freedom
 #' @return the confidence level, the statistical marginal error, the lower and upper bound of the confidence interval. 
-#' In case of proportion and the number of observations is greater than 50, it is also added the Yates' continuity. In the plots area are also automatically simulated and shown the 200 sampled confidence interval in order to remind that the parameter of the population is unknown and it is only possible to guess with a certain confidence where the parameter should be. 
-#' On the x-axes is also included the number of times the simulation of the boundaries are not including the true parameter.
+#' In case of proportion and the number of observations is greater than 50, it is also added the Yates' continuity. In the plots area are also automatically simulated and shown the first 200 sampled confidence intervals in order to remind that the parameter of the population is unknown and it is only possible to guess with a certain confidence where the parameter should be. 
+#' On the x-axes is also included the coverage obtained by the simulations. It represent the percentage of times the true parameter was in the bound of the confidence interval.
 #' In case of chi-squared distribution it is produced the density function and the confidence intervals. The focus is on the asymmetric effect on the probabilities.
 #' @export
 #' @examples
@@ -167,7 +167,7 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
     
     ID <- which(!(CIs[1:200, 1] <= center & center <= CIs[1:200, 2]))
     timesout<-length(which(!(CIs[, 1] <= center & center <= CIs[, 2])))/dim(CIs)[1]
-    timesoutperc<-timesout*100
+    timesoutperc<-(1-timesout)*100
     
     # initialize the plot
     plot(center, 
@@ -192,7 +192,7 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
     abline(v = lower_bound, lty = 2,lwd=2,col="orange")
     abline(v = upper_bound, lty = 2,lwd=2,col="orange")
     abline(v = center, lty = 2,lwd=2)
-    mtext(paste(timesoutperc,"%","number of times the true parameter was not included"),side=1,line=2)    
+    mtext(paste(timesoutperc,"%","coverage from the simulation"),side=1,line=2)    
     
     
   } 
@@ -216,7 +216,7 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
     
     ID <- which(!(CIs[1:200, 1] <= center & center <= CIs[1:200, 2]))
     timesout<-length(which(!(CIs[, 1] <= center & center <= CIs[, 2])))/dim(CIs)[1]
-    timesoutperc<-timesout*100
+    timesoutperc<-(1-timesout)*100
     # initialize the plot
     plot(center, 
          xlim = c(lower_bound, upper_bound), 
@@ -241,7 +241,7 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
     abline(v = upper_bound, lty = 2,lwd=2,col="orange")
     abline(v = center, lty = 2,lwd=2)
     
-    mtext(paste(timesoutperc,"%","number of times the true parameter was not included"),side=1,line=2)
+    mtext(paste(timesoutperc,"%","coverage from the simulation"),side=1,line=2)
     
     if((distr=="binom")|((distr=="binom")&(n>=50))){mtext("based on Binomial distribution",side=3)}
     if(distr=="t"){mtext("based on t-distribution",side=3) }
