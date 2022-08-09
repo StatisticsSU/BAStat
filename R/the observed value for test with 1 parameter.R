@@ -19,7 +19,7 @@
 #' parameter<-0.08
 #' observed(x=10,parameter=0.08,binom=T,n=160)
 
-observed<-function(x,parameter,binom=F,n=NULL){
+observed<-function(x=NULL,parameter=NULL,binom=F,n=NULL){
   
   num<-mean(x)-parameter
   nn<-length(x)
