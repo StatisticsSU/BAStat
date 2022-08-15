@@ -78,7 +78,7 @@ binProbsPlots<-function(size,prob,side,value.x=NULL,lower.x=NULL,upper.x=NULL,cd
       mtext(paste("P(X<=x) or F(X=x)=", round((pbinom(value.x,size,prob)),4)), side = 3,col="blue")
       points(value.x,(pbinom(value.x,size,prob)),col="blue",pch=16)
       x1<-ifelse(x<=value.x & x>=lower.x,x,NA)
-      cum1<-ifelse(cdfbinom<=pbinom(value.x,size,prob) & cdfbinom>=cumsum(pbinom(lower.x,size,prob)),cdfbinom,NA)
+      cum1<-ifelse(cdfbinom<=pbinom(value.x,size,prob),cdfbinom,NA)
       p1<-cbind(x1,cum1)
       points(p1, col="blue", pch=16,type="s")
       points(p1, col="blue", pch=16)
