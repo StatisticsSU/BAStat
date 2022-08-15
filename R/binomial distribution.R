@@ -25,6 +25,9 @@
 
 
 
+
+
+
 binProbsPlots<-function(size,prob,side,value.x=NULL,lower.x=NULL,upper.x=NULL,cdf=FALSE){
   x<-0:size
   pdf<-dbinom(x,size,prob)  
