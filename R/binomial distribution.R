@@ -25,9 +25,6 @@
 
 
 
-
-
-
 binProbsPlots<-function(size,prob,side,value.x=NULL,lower.x=NULL,upper.x=NULL,cdf=FALSE){
   x<-0:size
   pdf<-dbinom(x,size,prob)  
@@ -71,13 +68,11 @@ binProbsPlots<-function(size,prob,side,value.x=NULL,lower.x=NULL,upper.x=NULL,cd
   
   
   if(cdf==TRUE){
-    
     cdfbinom<-cumsum(pdf)
     plot(x,cdfbinom,type="s", main="",lty=2,ylab="CDF")
     points(x,cdfbinom,pch=16) 
     
     if(side=="left"){
-      lower.x<-0
       mtext(paste("P(X<=x) or F(X=x)=", round((pbinom(value.x,size,prob)),4)), side = 3,col="blue")
       points(value.x,(pbinom(value.x,size,prob)),col="blue",pch=16)
       x1<-ifelse(x<=value.x,x,NA)
@@ -122,3 +117,8 @@ binProbsPlots<-function(size,prob,side,value.x=NULL,lower.x=NULL,upper.x=NULL,cd
   
 }
 
+
+
+
+
+ 
