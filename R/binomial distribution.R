@@ -4,7 +4,7 @@
 #' @param prob probability of success on each trial.
 #' @param side if it is `equal`, than it will be the probability in one point, `value.x`, P(X=x); if it is `left`, than it will be the probability of all values before the point, `value.x`, P(X<=x);
 #' if it is `right`, than it will be the probability of all values after one point, `value.x`, P(X>=x); if it is `between`, than it will be the probability of all values between, `lower.x` and `upper.x`, P(xl<=X<=xu);
-#' @param value.x the point of the probability P(X=x) or  P(X>=x) or  P(X<=x)
+#' @param value.x the point of the probability on one side: P(X=x) or  P(X>=x) or  P(X<=x)
 #' @param lower.x the first point of the probability in between P(xl<=X<=xu)
 #' @param upper.x the second point of the probability in between P(xl<=X<=xu)
 #' @param cdf is true than it is possible to see the plot and the CDF values for the Binomial distribution

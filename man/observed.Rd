@@ -4,7 +4,7 @@
 \alias{observed}
 \title{This small function is for standardizing the observed value before the test for one parameter}
 \usage{
-observed(x, parameter, binom = F, n = NULL)
+observed(x = NULL, parameter = NULL, binom = F, n = NULL)
 }
 \arguments{
 \item{x}{the numerical variable to be standardized}

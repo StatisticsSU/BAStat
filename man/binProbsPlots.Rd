@@ -32,7 +32,7 @@ binProbsPlots(
 
 \item{side}{it can be \code{equal} and it the plot with the probability in one specific value that it will assigned in \code{value.x}; if side it is equal to \code{left} then the probability is considered to be on the left side or equal to the chosen value; \code{right} if the probability is on the right side or equal to the chosen value; \code{between} if it is referred to the probability between or equal to two values and in that case it has to be specified \code{lower.x} and \code{upper.x}}
 
-\item{value.x}{the point of the probability P(X=x) or  P(X>=x) or  P(X<=x)}
+\item{value.x}{the point of the probability on one side: P(X=x) or  P(X>=x) or  P(X<=x)}
 
 \item{lower.x}{the first point of the probability in between P(xl<=X<=xu)}
 
