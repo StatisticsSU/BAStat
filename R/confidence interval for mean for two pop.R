@@ -153,11 +153,11 @@ CIT2pop<-function(x,y,datas,alpha,step="1: Describe"){
     points(Crit,0, col = "blue", pch = 19)
     points(Obs,0, col = "red", pch = 19)
     
-    if(Obs>Crit){
+    if(Crit<Obs){
       mtext(~italic("Reject null hypothesis: \n unequal pop. variances"), side=3)
     }
     
-    if(Obs<=Crit){
+    if(Crit>Obs){
       mtext(~italic("No Reject null hypothesis: \n  equal pop. variances"), side=3)
     }
     
@@ -182,10 +182,10 @@ CIT2pop<-function(x,y,datas,alpha,step="1: Describe"){
     polygon(xp,yp,  col = "red")
     
     
-    if(fstat$p.value/2<=alpha/2){
+    if(alpha/2>fstat$p.value/2){
       mtext(~italic("Reject null hypothesis \n unequal pop.variances"), side=3)
     }
-    if(fstat$p.value/2>alpha/2){
+    if(alpha/2<=fstat$p.value/2){
       mtext(~italic("No Reject null hypothesis \n equal pop.variances"), side=3)
     }
     
