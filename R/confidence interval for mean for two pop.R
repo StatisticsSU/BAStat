@@ -154,11 +154,11 @@ CIT2pop<-function(x,y,datas,alpha,step="1: Describe"){
     points(Crit,0, col = "blue", pch = 19)
     points(Obs,0, col = "red", pch = 19)
     
-    if(Obs<Crit){
+    if(Obs>Crit){
       mtext(~italic("Reject null hypothesis: \n unequal pop. variances"), side=3)
     }
     
-    if(Obs>=Crit){
+    if(Obs<=Crit){
       mtext(~italic("No Reject null hypothesis: \n  equal pop. variances"), side=3)
     }
     
@@ -183,14 +183,14 @@ CIT2pop<-function(x,y,datas,alpha,step="1: Describe"){
     polygon(xp,yp,  col = "red")
     
     
-    if(fstat$p.value<=alpha/2){
+    if(fstat$p.value/2>=alpha/2){
       mtext(~italic("Reject null hypothesis \n unequal pop.variances"), side=3)
     }
-    if(fstat$p.value>alpha/2){
+    if(fstat$p.value/2<alpha/2){
       mtext(~italic("No Reject null hypothesis \n equal pop.variances"), side=3)
     }
     
-    legend(x = "topright", inset=.05, legend = c(c("alpha/2:", round(alpha/2,4),"P-value/2:",round(pObs,4))), pch = c(19,19),
+    legend(x = "topright", inset=.05, legend = c(c("alpha/2:", round(alpha/2,4),"P-value/2:",round(fstat$p.value/2,4))), pch = c(19,19),
            cex = c(1,1), pt.lwd = c(NA,NA), col = c("light blue","light blue","red","red"), bty="n",pt.cex=0.7)
     
     
@@ -201,7 +201,7 @@ CIT2pop<-function(x,y,datas,alpha,step="1: Describe"){
   if(step=="4: t-test for two pop. means"){
     
     
-    if(var.test(x~y, data=datas)$p.value>=alpha/2){
+    if(var.test(x~y, data=datas)$p.value/2>=alpha/2){
       
       # print(comp_table, digits = 5, na.print = "")
       testequal<-t.test(x~y, alternative = "two.sided", var.equal = TRUE, data=datas)
@@ -424,3 +424,4 @@ CIT2pop<-function(x,y,datas,alpha,step="1: Describe"){
   }
   
 }
+
