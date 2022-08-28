@@ -133,14 +133,13 @@ CIT2pop<-function(x,y,datas,alpha,step="1: Describe"){
     deg.fred2<-length(group2[[1]])-1
     
     Obs<-f.stat<-var(group1[[1]])/var(group2[[1]])
-    Crit<-pf(1-alpha/2,df1=deg.fred1,df2=deg.fred2)
+    Crit<-qf(1-alpha/2,df1=deg.fred1,df2=deg.fred2)
     
-    pObs<-pf(f.stat,df1=deg.fred1,df2=deg.fred2)
+    pObs<-1-pf(f.stat,df1=deg.fred1,df2=deg.fred2)
     
     max.x<-max(Crit,Obs)+3
     min.x<-max(0,f.stat-3)
     Grid= seq(min.x,max.x,by = 0.01)
-    
     
     
     plot(Grid, df(Grid,df1=deg.fred1,df2=deg.fred2), type = "l", xlab = "F", ylab = "Fisher density",lwd=1,xaxt="n")
@@ -183,10 +182,10 @@ CIT2pop<-function(x,y,datas,alpha,step="1: Describe"){
     polygon(xp,yp,  col = "red")
     
     
-    if(fstat$p.value/2>=alpha/2){
+    if(fstat$p.value/2<=alpha/2){
       mtext(~italic("Reject null hypothesis \n unequal pop.variances"), side=3)
     }
-    if(fstat$p.value/2<alpha/2){
+    if(fstat$p.value/2>alpha/2){
       mtext(~italic("No Reject null hypothesis \n equal pop.variances"), side=3)
     }
     
