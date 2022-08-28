@@ -153,13 +153,13 @@ CIT2pop<-function(x,y,datas,alpha,step="1: Describe"){
     points(Crit,0, col = "blue", pch = 19)
     points(Obs,0, col = "red", pch = 19)
     
-    if(Crit<Obs){
-      mtext(~italic("Reject null hypothesis: \n unequal pop. variances"), side=3)
-    }
+    # if(Crit<Obs){
+    #  mtext(~italic("Reject null hypothesis: \n unequal pop. variances"), side=3)
+    #}
     
-    if(Crit>Obs){
-      mtext(~italic("No Reject null hypothesis: \n  equal pop. variances"), side=3)
-    }
+    #if(Crit>Obs){
+    #  mtext(~italic("No Reject null hypothesis: \n  equal pop. variances"), side=3)
+    #}
     
     legend(x = "topright", inset=.05, legend = c(c("Crit",round(Crit,4)), c("F-stat",round(Obs,4))), pch = c(19,19),
            cex = c(1,1), pt.lwd = c(NA,NA), col = c("blue","blue","red","red"), bty="n",pt.cex = 0.7)
