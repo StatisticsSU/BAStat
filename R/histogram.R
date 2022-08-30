@@ -28,7 +28,7 @@ histog<-function(x,x_lab="",title_x="",palette_x="light blue",breaks_x=ceiling(l
   # Histogram
   
   p_hist = hist(x, plot = F)
-  hist(x, prob = TRUE, col = palette_x,xlab=x_lab,main=title_x,breaks=breaks_x,
+  hist(x, prob = TRUE, col = palette_x,xlab=x_lab,main=title_x,breaks=breaks_x,las=1,
        ylim = c(0, max(p_hist$density, fun)))
   
   lines(x2, fun, col = "red", lwd = 2)# Density
