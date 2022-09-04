@@ -1,4 +1,5 @@
 #' Show the interaction between the probability of type 1 and type 2 error 
+#' The aim is to show the areas based on the null and alternative sampling distributions of the mean
 #' Tests H0: mu = mu0 vs Ha: mu > mu0; H0: mu = mu0 vs Ha: mu < mu0; H0: mu = mu0 vs Ha: mu != mu0
 #' 
 #' @param mu0 the parameter under the null hypothesis
@@ -9,7 +10,7 @@
 #'  side it can be `greater` if it is one side test and the alternative hypothesis is greater than the null hypothesis;   
 #'  side it can be `two.sided` if it is two sides test and the alternative hypothesis can be smaller than the null hypothesis or the alternative hypothesis can be greater than the null hypothesis;   
 #' @param Obs if it is *TRUE* so if it is a specific value than it is possible to see on the same plot the value and the p-value
-#' @return plot for the probability of type 1 and type 2 error as areas. The plots are based on Standardized Normal distributions it is also reported gamma which is the power of the test as 1-beta
+#' @return Plot for the probability of type 1 and type 2 error as areas. The plots are based on Standardized Normal distributions it is also reported gamma which is the power of the test as 1-beta
 #' @export
 #' @examples
 #' library(BAStat)

@@ -4,6 +4,7 @@
 \name{alpha.beta}
 \alias{alpha.beta}
 \title{Show the interaction between the probability of type 1 and type 2 error
+The aim is to show the areas based on the null and alternative sampling distributions of the mean
 Tests H0: mu = mu0 vs Ha: mu > mu0; H0: mu = mu0 vs Ha: mu < mu0; H0: mu = mu0 vs Ha: mu != mu0}
 \usage{
 alpha.beta(mu0, mua, sigmax, alpha, side, Obs = FALSE)
@@ -17,15 +18,18 @@ alpha.beta(mu0, mua, sigmax, alpha, side, Obs = FALSE)
 
 \item{alpha}{significance level.}
 
-\item{side}{it can be \code{right} if it is one side test and the alternative hypothesis is greater than the null hypothesis;}
+\item{side}{it can be \code{less} if it is one side test and the alternative hypothesis is less than the null hypothesis;
+side it can be \code{greater} if it is one side test and the alternative hypothesis is greater than the null hypothesis;
+side it can be \code{two.sided} if it is two sides test and the alternative hypothesis can be smaller than the null hypothesis or the alternative hypothesis can be greater than the null hypothesis;}
 
-\item{step}{if it is \emph{"4: t-test for two pop. means"} it is the fourth step and it is based on t-test; the t-test is provided with equal variances (pooled variance in t-statistics) if it was not rejected the null hypothesis at the third step; the t-test for unequal variances (Welch test) if it was rejected the null hypothesis at the third step.}
+\item{Obs}{if it is \emph{TRUE} so if it is a specific value than it is possible to see on the same plot the value and the p-value}
 }
 \value{
-four steps: 1-descriptive statistics for each group; 2-confidence interval for the mean and the variance for each group; 3-test F check if the variances can be assumed equal or not; 4-t-test based on the assumption or not of equal variances. For step 3 and 4 are drawn plots in order to reject the null hypothesis
+Plot for the probability of type 1 and type 2 error as areas. The plots are based on Standardized Normal distributions it is also reported gamma which is the power of the test as 1-beta
 }
 \description{
 Show the interaction between the probability of type 1 and type 2 error
+The aim is to show the areas based on the null and alternative sampling distributions of the mean
 Tests H0: mu = mu0 vs Ha: mu > mu0; H0: mu = mu0 vs Ha: mu < mu0; H0: mu = mu0 vs Ha: mu != mu0
 }
 \examples{
