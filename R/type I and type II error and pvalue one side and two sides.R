@@ -8,7 +8,8 @@
 #' @param alpha significance level.
 #' @param side it can be `less` if it is one side test and the alternative hypothesis is less than the null hypothesis;   
 #'  side it can be `greater` if it is one side test and the alternative hypothesis is greater than the null hypothesis;   
-#'  side it can be `two.sided` if it is two sides test and the alternative hypothesis can be smaller than the null hypothesis or the alternative hypothesis can be greater than the null hypothesis;   
+#'  side it can be `two.sided` if it is two sides test and the alternative hypothesis can be smaller than the null hypothesis or the alternative hypothesis can be greater than the null hypothesis; in the plot there is alpha divided by 
+#'  two and it is represented in light blue the area and it is also specified if it is on the right side or on the left side for the comparison with the beta.
 #' @param Obs if it is *TRUE* so if it is a specific value than it is possible to see on the same plot the value and the p-value
 #' @return Plot for the probability of type 1 and type 2 error as areas. The plots are based on Standardized Normal distributions it is also reported gamma which is the power of the test as 1-beta
 #' @export
