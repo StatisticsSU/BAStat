@@ -16,21 +16,21 @@
 #' @examples
 #' library(BAStat)
 #' 
-#' alpha.beta(mu0=200,mua=180,sigmax=7,alpha=0.05,Obs=183,side="left")
+#' alphabeta(mu0=200,mua=180,sigmax=7,alpha=0.05,Obs=183,side="left")
 #'
-#'alpha.beta(mu0=200,mua=180,sigmax=7,alpha=0.05,side="left")
-#'alpha.beta(mu0=200,mua=180,sigmax=7,alpha=0.1,side="left")
+#'alphabeta(mu0=200,mua=180,sigmax=7,alpha=0.05,side="left")
+#'alphabeta(mu0=200,mua=180,sigmax=7,alpha=0.1,side="left")
 #'
-#'alpha.beta(mu0=200,mua=220,sigmax=7,alpha=0.05,Obs=218,side="right")
-#'alpha.beta(mu0=200,mua=220,sigmax=7,alpha=0.05,side="right")
-#'alpha.beta(mu0=200,mua=220,sigmax=7,alpha=0.1,side="right")
+#'alphabeta(mu0=200,mua=220,sigmax=7,alpha=0.05,Obs=218,side="right")
+#'alphabeta(mu0=200,mua=220,sigmax=7,alpha=0.05,side="right")
+#'alphabeta(mu0=200,mua=220,sigmax=7,alpha=0.1,side="right")
 #'
-#'alpha.beta(mu0=200,mua=220,sigmax=7,alpha=0.05,side="two.sided")
-#'alpha.beta(mu0=200,mua=180,sigmax=7,alpha=0.05,side="two.sided")
-#'alpha.beta(mu0=200,mua=220,sigmax=7,alpha=0.05,Obs=218,side="two.sided")
-#'alpha.beta(mu0=200,mua=180,sigmax=7,alpha=0.05,Obs=183,side="two.sided")
+#'alphabeta(mu0=200,mua=220,sigmax=7,alpha=0.05,side="two.sided")
+#'alphabeta(mu0=200,mua=180,sigmax=7,alpha=0.05,side="two.sided")
+#'alphabeta(mu0=200,mua=220,sigmax=7,alpha=0.05,Obs=218,side="two.sided")
+#'alphabeta(mu0=200,mua=180,sigmax=7,alpha=0.05,Obs=183,side="two.sided")
 
-alpha.beta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
+alphabeta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
   
   if(side=="greater"){
     cv<-(sigmax*(qnorm(1-alpha)))+mu0
