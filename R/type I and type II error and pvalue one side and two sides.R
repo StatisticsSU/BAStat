@@ -38,7 +38,7 @@ alphabeta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
     
     minx<-min(mu0,mua)-3*sigmax
     maxx<-max(mu0,mua)+3*sigmax
-    Grid= seq(minx,maxx,by = 0.01)
+    Grid= seq(minx,maxx,by = 0.001)
     
     plot(Grid, dnorm(Grid,mu0,sigmax), las=1,type = "l", xlab = "x",
          ylab = "Normal probability density",lwd=1,
@@ -95,7 +95,7 @@ alphabeta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
     
     minx<-min(mu0,mua)-3*sigmax
     maxx<-max(mu0,mua)+3*sigmax
-    Grid= seq(minx,maxx,by = 0.01)
+    Grid= seq(minx,maxx,by = 0.001)
     
     plot(Grid, dnorm(Grid,mu0,sigmax), las=1,type = "l", xlab = "x",
          ylab = "Normal probability density",lwd=1,
@@ -157,7 +157,7 @@ alphabeta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
       beta2<-pnorm((cvu-mua)/sigmax) 
       minx<-min(mu0,mua)-3*sigmax
       maxx<-max(mu0,mua)+3*sigmax
-      Grid= seq(minx,maxx,by = 0.01)
+      Grid= seq(minx,maxx,by = 0.001)
       
       plot(Grid, dnorm(Grid,mu0,sigmax), las=1,type = "l", xlab = "x",
            ylab = "Normal probability density",lwd=1,
@@ -216,10 +216,6 @@ alphabeta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
         text(x=Obs,y=alpha/2,"Obs",col=2)
         text(x=Obs+0.05,y=round(1-pnorm((Obs-mu0)/sigmax),2),paste("pv=",round((1-pnorm((Obs-mu0)/sigmax))/2,4)),col=2)
         
-        
-        
-        
-        
       }
       
     }
@@ -229,7 +225,7 @@ alphabeta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
       
       minx<-min(mu0,mua)-3*sigmax
       maxx<-max(mu0,mua)+3*sigmax
-      Grid= seq(minx,maxx,by = 0.01)
+      Grid= seq(minx,maxx,by = 0.001)
       
       plot(Grid, dnorm(Grid,mu0,sigmax), las=1,type = "l", xlab = "x",
            ylab = "Normal probability density",lwd=1,
@@ -267,10 +263,10 @@ alphabeta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
       
       legend(x = "topleft", inset=.05, legend = bquote(~H[A]), 
              cex = 1,  col ="black", bty="n")
-      mtext(bquote(~gamma==.(1-round(beta2,4))~"crit.v.l."==.(round(cvl,4))~"crit.v.r."==.(round(cvu,4))),side=3)
+      mtext(bquote(~gamma==.(1-round(beta1,4))~"crit.v.l."==.(round(cvl,4))~"crit.v.r."==.(round(cvu,4))),side=3)
       
-      text(x=mean(x),y=mean(y) ,bquote(~beta==.(round(beta2,4))),col="orange")
-      text(x=cvl,y=beta2/2,"Crit.v.",col=4)
+      text(x=mean(x),y=mean(y) ,bquote(~beta==.(round(beta1,4))),col="orange")
+      text(x=cvl,y=beta1/2,"Crit.v.",col=4)
       text(x=cvl,y=max(y)-0.006 ,bquote(~alpha==.(round(alpha/2,4))),col="blue")
       text(x=cvu,y=max(y)-0.006 ,bquote(~alpha==.(round(alpha/2,4))),col="blue")
       text(x=cvl,y=max(y),"Reject region",col="blue",cex=0.6)
