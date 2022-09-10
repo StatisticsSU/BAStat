@@ -183,7 +183,7 @@ alphabetabinom<-function(pi0,pia,n,alpha,side,Obs=FALSE){
       
       
       x = seq(from = min(Grid), to = cvl, length.out = 1000) 
-      y = Plota(x,epi0,sdpi0)
+      y = Plot(x,epi0,sdpi0)
       
       x = c(cvl,min(Grid), x, cvl) 
       y = c(y, 0, 0, 0)
