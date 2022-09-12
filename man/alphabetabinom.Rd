@@ -5,7 +5,8 @@
 \alias{alphabetabinom}
 \title{Show the interaction between the probability of type 1 and type 2 error when it is based on Binomial distribution
 The aim is to show the areas based on the null and alternative sampling distributions of the proportion. Computations are without the adjusting for small samples.
-Tests H0: pi = pi0 vs Ha: pi > pi0; H0: pi = pi0 vs Ha: pi < pi0; H0: pi = pi0 vs Ha: pi != pi0}
+Tests H0: pi = pi0 vs Ha: pi > pi0; H0: pi = pi0 vs Ha: pi < pi0; H0: pi = pi0 vs Ha: pi != pi0
+It was possible to add this function to the mean function, but the purpose is also to remember that at the beginning the distribution is discrete and in the standard deviation it might be under null hypothesis or alternative hypothesis.}
 \usage{
 alphabetabinom(pi0, pia, n, alpha, side, Obs = FALSE)
 }
@@ -32,6 +33,7 @@ Plot for the probability of type 1 and type 2 error as areas. The plots are base
 Show the interaction between the probability of type 1 and type 2 error when it is based on Binomial distribution
 The aim is to show the areas based on the null and alternative sampling distributions of the proportion. Computations are without the adjusting for small samples.
 Tests H0: pi = pi0 vs Ha: pi > pi0; H0: pi = pi0 vs Ha: pi < pi0; H0: pi = pi0 vs Ha: pi != pi0
+It was possible to add this function to the mean function, but the purpose is also to remember that at the beginning the distribution is discrete and in the standard deviation it might be under null hypothesis or alternative hypothesis.
 }
 \examples{
 library(BAStat)
