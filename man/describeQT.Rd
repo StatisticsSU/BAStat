@@ -18,16 +18,16 @@ describeQT(
 
 \item{title_x}{is for the title of the plot}
 
+\item{palette_x}{is for the color of the plot. Default color is light blue but it can be changed}
+
+\item{breaks_x}{is for the histogram: in order to choose the number of groups in it.}
+
 \item{plot}{histogram as default diagram. It is possible to show a boxplot with the mean and the median on the plot.}
 
-\item{cols}{is for the color of the bars: orange and green are on default but they can be easily changed.}
-
 \item{place}{is for the legend to placed on top left, top right, bottom right or bottom left.}
-
-\item{ylims}{is for the extreme values on the y-axis.}
 }
 \value{
-Plot and table for the qualitative variable.
+Plot and table for one quantitative variable.
 }
 \description{
 The aim of this function is to show how to represent a quantitative (discrete or continuous) variable numerically and graphically at the same time.
