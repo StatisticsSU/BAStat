@@ -39,8 +39,8 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
     erroru <- qchisq(1-alpha/2, df=degree.fred)
     
     
-    lower_bound <-  (stddev^2*degree.fred)/erroru
-    upper_bound <- (stddev^2*degree.fred)/errorl
+    lower_bound <-  (stddev^2*erroru)/degree.fred
+    upper_bound <- (stddev^2*errorl)/degree.fred
     
     cat("confidence level\n------------------------------------------------\n");
     print(1-alpha, digits = 5, na.print = "")
@@ -61,8 +61,8 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
     
     abline(v = lower_bound, lty = 2,lwd=2,col="orange")
     abline(v = upper_bound, lty = 2,lwd=2,col="orange")
-    p<-c(lower_bound, round(mean(y),4))
-    text(p,paste(round(lower_bound,4)),adj=-0.2,col="red")
+    p<-c(lower_bound, round((max(y)-min(y))/2,4))
+    text(t(p),paste(round(lower_bound,4)),col="red")
     p<-c(upper_bound, round(mean(y),4))
     text(t(p),paste(round(upper_bound,4)),col="red")
     
