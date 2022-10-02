@@ -39,8 +39,8 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
     erroru <- qchisq(1-alpha/2, df=degree.fred)
     
     
-    lower_bound <-  (stddev^2*erroru)/degree.fred
-    upper_bound <- (stddev^2*errorl)/degree.fred
+    lower_bound <-  (stddev^2*errorl)/degree.fred
+    upper_bound <- (stddev^2*erroru)/degree.fred
     
     cat("confidence level\n------------------------------------------------\n");
     print(1-alpha, digits = 5, na.print = "")
