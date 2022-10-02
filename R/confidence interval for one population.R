@@ -35,36 +35,30 @@ CI<-function(distr="Standard Normal",alpha,center=NULL,stddev=NULL,n=NULL,degree
   
   if(distr=="chi.sq"){
     
-    errorl <- qchisq(alpha/2, df=degree.fred)
-    erroru <- qchisq(1-alpha/2, df=degree.fred)
-    
-    
-    lower_bound <-  (stddev^2*errorl)/degree.fred
-    upper_bound <- (stddev^2*erroru)/degree.fred
-    
-    cat("confidence level\n------------------------------------------------\n");
-    print(1-alpha, digits = 5, na.print = "")
-    cat("Quantiles of the Chi-squared distribution\n------------------------------------------------\n");
+    errorl <- qchisq(alpha/2, df = degree.fred)
+    erroru <- qchisq(1 - alpha/2, df = degree.fred)
+    lower_bound <- (stddev^2 * errorl)/degree.fred
+    upper_bound <- (stddev^2 * erroru)/degree.fred
+    cat("Quantiles of the Chi-squared distribution\n------------------------------------------------\n")
     print(c(errorl, erroru), digits = 5, na.print = "")
-    cat("(lower bound; upper bound)\n------------------------------------------------\n");
-    print(c(lower_bound,upper_bound), digits = 5, na.print = "")
+    cat("(lower bound; upper bound)\n------------------------------------------------\n")
+    print(c(lower_bound, upper_bound), digits = 5, na.print = "")
     
     
     min.x<-0
     max.x<-upper_bound+5
-    x<-seq(min.x,max.x,by=1)
-    y<-dchisq(x,df=degree.fred)
-    
-    
-    plot(x,y, type = "l", xlab = expression(chi^2), ylab = "Chi-squared density",main="Inequality of the probabilities in CI",lwd=1,xaxt="n")
-    axis(1,at=seq(0,max.x,by=5),lwd=0.1)
-    
-    abline(v = lower_bound, lty = 2,lwd=2,col="orange")
-    abline(v = upper_bound, lty = 2,lwd=2,col="orange")
-    p<-c(lower_bound, round((max(y)-min(y))/2,4))
-    text(t(p),paste(round(lower_bound,4)),col="red")
-    p<-c(upper_bound, round(mean(y),4))
-    text(t(p),paste(round(upper_bound,4)),col="red")
+    x <- seq(0, max.x, by = 1)
+    y <- dchisq(x, df = degree.fred)
+    plot(x, y, type = "l", xlab = expression(chi^2), ylab = "Chi-squared density", 
+         main = "Inequality of the probabilities in CI", lwd = 1, 
+         xaxt = "n",las=1)
+    axis(1, at = seq(0, max.x, by = 5), lwd = 0.1)
+    abline(v = lower_bound, lty = 2, lwd = 2, col = "orange")
+    abline(v = upper_bound, lty = 2, lwd = 2, col = "orange")
+    p <- c(lower_bound, round((max(y)-min(y))/2, 2))
+    text(t(p), paste(round(lower_bound, 2)), col = "red")
+    p <- c(upper_bound, round(mean(y), 2))
+    text(t(p), paste(round(upper_bound, 2)), col = "red")
     
   }
   
