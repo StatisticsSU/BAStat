@@ -71,7 +71,7 @@ alphabeta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
     
     mtext(bquote(~gamma==.(1-round(beta,4))~"crit.v."==.(round(cv,4))),side=3)
     
-    text(x=mean(x),y=mean(y) ,bquote(~beta==.(round(beta,4))),col="dark brown")
+    text(x=mean(x),y=mean(y) ,bquote(~beta==.(round(beta,4))),col="brown")
     
     if(Obs){
       abline(v=Obs,col=2,lwd=2,lty=2)
@@ -129,7 +129,7 @@ alphabeta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
     
     mtext(bquote(~gamma==.(1-round(beta,4))~"crit.v."==.(round(cv,4))),side=3)
     
-    text(x=mean(x),y=mean(y) ,bquote(~beta==.(round(beta,4))),col="orange")
+    text(x=mean(x),y=mean(y) ,bquote(~beta==.(round(beta,4))),col="brown")
     
     
     text(x=cv,y=beta/2,"Crit.v.",col=4)
@@ -198,7 +198,7 @@ alphabeta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
       
       mtext(bquote(~gamma==.(1-round(beta2,4))~"crit.v.l."==.(round(cvl,4))~"crit.v.r."==.(round(cvu,4))),side=3)
       
-      text(x=mean(x),y=mean(y) ,bquote(~beta==.(round(beta2,4))),col="orange")
+      text(x=mean(x),y=mean(y) ,bquote(~beta==.(round(beta2,4))),col="brown")
       text(x=cvu-1,y=max(y),"Reject region",col="blue",cex=0.6)
       text(x=cvl-1,y=max(y),"Reject region",col="blue",cex=0.6)
       
@@ -265,7 +265,7 @@ alphabeta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
              cex = 1,  col ="black", bty="n")
       mtext(bquote(~gamma==.(1-round(beta1,4))~"crit.v.l."==.(round(cvl,4))~"crit.v.r."==.(round(cvu,4))),side=3)
       
-      text(x=mean(x),y=mean(y) ,bquote(~beta==.(round(beta1,4))),col="orange")
+      text(x=mean(x),y=mean(y) ,bquote(~beta==.(round(beta1,4))),col="brown")
       text(x=cvl,y=beta1/2,"Crit.v.",col=4)
       text(x=cvl,y=max(y)-0.006 ,bquote(~alpha==.(round(alpha/2,4))),col="blue")
       text(x=cvu,y=max(y)-0.006 ,bquote(~alpha==.(round(alpha/2,4))),col="blue")
