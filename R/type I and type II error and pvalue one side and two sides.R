@@ -71,7 +71,7 @@ alphabeta<-function(mu0,mua,sigmax,alpha,side,Obs=FALSE){
     
     mtext(bquote(~gamma==.(1-round(beta,4))~"crit.v."==.(round(cv,4))),side=3)
     
-    text(x=mean(x),y=mean(y) ,bquote(~beta==.(round(beta,4))),col="orange")
+    text(x=mean(x),y=mean(y) ,bquote(~beta==.(round(beta,4))),col="dark brown")
     
     if(Obs){
       abline(v=Obs,col=2,lwd=2,lty=2)
