@@ -309,3 +309,4 @@ alphabetabinom<-function(pi0,pia,n,alpha,side,Obs=FALSE){
   }
   
 }
+
